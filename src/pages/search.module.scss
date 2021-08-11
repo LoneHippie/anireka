@@ -1,0 +1,13 @@
+@import '../styles/variables';
+
+.grid_body {
+    background: $nia-blue-light;
+    background-image: linear-gradient(to top right,
+        $nia-blue-light,
+        rgba($nia-blue-light, 0.5)
+    ), 
+    url('../images/bg_mushishi.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

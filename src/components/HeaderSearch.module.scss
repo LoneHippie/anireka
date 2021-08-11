@@ -1,0 +1,202 @@
+@import '../styles/variables';
+@import '../styles/mediaqueries';
+@import '../styles/mixins';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    height: $header-search-height;
+
+    background: $nia-pink;
+
+    z-index: 500;
+}
+
+.search_layout {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 90%;
+}
+
+.home {
+    width: 10%;
+    margin-right: 10%;
+}
+
+.home_button {
+    height: 6.5rem;
+    width: auto;
+}
+
+.searchbar {
+    width: 60%;
+
+    @include respond(landscapePhone) {
+        width: 70%;
+    }
+
+    display: flex;
+    flex-direction: row;
+
+    border: 2px solid $white;
+    border-radius: 8px;
+    overflow: hidden;
+
+    font-family: $oswald;
+    font-weight: 500;
+
+    z-index: 500;
+
+    & > input {
+        font-family: inherit;
+        font-weight: inherit;
+        font-size: 2rem;
+
+        width: 82.5%;
+        padding: 0.2rem 0.5rem;
+
+        border: none;
+
+        color: $black;
+    }
+
+    & > button {
+        width: 17.5%;
+        border: none;
+        background-color: $nia-blue-light;
+        color: $white;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        & > img {
+            height: 2.3rem;
+            width: auto;
+        }
+    }
+}
+
+.options_button {
+    width: 15%;
+
+    @include respond(landscapePhone) {
+        width: 10%;
+    }
+
+    background: $nia-blue-light;
+    border-radius: 8px;
+    border: 2px solid $white;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    & > img {
+        height: 3.1rem;
+        width: auto;
+    }
+}
+
+.options {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+
+    margin-top: $header-search-height;
+    transform: translateY(-0.5rem);
+
+    background: $nia-pink;
+
+    animation: slideIn 300ms;
+
+    transition: all 300ms ease-out;
+
+    z-index: -1;
+
+    & > h2 {
+        width: 100%;
+        margin: 0 1.5rem;
+        // text-align: center;
+        border-bottom: 2px solid $white;
+        color: $white;
+        font-family: $rosario;
+        font-size: 3rem;
+    }
+}
+
+.genre_grid {
+    padding: 1.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 0.5rem;
+
+    & > button {
+        border-radius: 8px;
+        font-family: $oswald;
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: 500;
+        padding: 0.3rem 0.5rem;
+
+        background: $nia-blue-light;
+        color: $white;
+        border: none;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.genre_search_button {
+    @include btnPrimary($nia-blue-light);
+    border: 2px solid $white;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1.5rem;
+
+    transition: all 250ms;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:disabled {
+        cursor: default;
+        border: 2px solid rgba($white, 0.5) !important;
+        background: none !important;
+        color: rgba($white, 0.5) !important;
+    }
+}
+
+.ui_blur {
+    position: absolute;
+    margin-top: $header-search-height;
+    height: 100vh;
+    width: 100%;
+    background: rgba($black, 0.6);
+
+    z-index: -1;
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translate(50rem, -0.5rem);
+    }
+    100% {
+        transform: translate(0rem, -0.5rem);
+    }
+}
