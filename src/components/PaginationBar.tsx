@@ -32,7 +32,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
             for (let i = 1; i <= pageInfo.lastPage; i++) {
                 pages.push(
                     <button
-                        key={`to-page-${i}`}
+                        key={`to-page-${i}-short`}
                         onClick={() => handlePaginate(i)}
                         disabled={ pageInfo.currentPage === i ? true : false }
                     >
@@ -56,18 +56,21 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
             } else if (pageInfo.currentPage !== pageInfo.lastPage) {
                 pages.push(
                     <button
+                        key={`page-back`}
                         onClick={() => handlePaginate(pageInfo.currentPage - 1)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage - 1 ? true : false }
                     >
                         {pageInfo.currentPage - 1}
                     </button>,
                     <button
+                        key={`current-page`}
                         onClick={() => handlePaginate(pageInfo.currentPage)}
-                        disabled={ pageInfo.currentPage === pageInfo.currentPage ? true : false }
+                        disabled={ true }
                     >
                         {pageInfo.currentPage}
                     </button>,
                     <button
+                        key={`page-next`}
                         onClick={() => handlePaginate(pageInfo.currentPage + 1)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage + 1 ? true : false }
                     >
@@ -77,18 +80,21 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
             } else {
                 pages.push(
                     <button
+                        key={`page-back-2`}
                         onClick={() => handlePaginate(pageInfo.currentPage - 2)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage - 2 ? true : false }
                     >
                         {pageInfo.currentPage - 2}
                     </button>,
                     <button
+                        key={`page-back-1`}
                         onClick={() => handlePaginate(pageInfo.currentPage - 1)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage - 1 ? true : false }
                     >
                         {pageInfo.currentPage - 1}
                     </button>,
                     <button
+                        key={`page-last`}
                         onClick={() => handlePaginate(pageInfo.currentPage)}
                         disabled={ pageInfo.currentPage === pageInfo.lastPage ? true : false }
                     >

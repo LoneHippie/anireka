@@ -1,5 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { recommendationsQuery } from '../api/anilist';
+
+import CardMini from './CardMini';
+
+import Swoop from '../images/swoop_card_white.svg';
 
 import styles from './RecommendationsTab.module.scss';
 
@@ -9,14 +13,47 @@ interface Props {
 
 const RecommendationsTab: React.FC<Props> = ({ sourceID }) => {
 
+    const [ recommendations, setRecommendations ] = useState<any>(null);
+
     useEffect(() => {
         recommendationsQuery(sourceID, 1)
-            .then(data => console.log(data.data.Media));
+            .then(data => {
+                // console.log(data.data.Media);
+                setRecommendations(data.data.Media);
+            });
     }, [sourceID])
+
+    const recommendationCards = () => {
+        if (recommendations) {
+            if (!recommendations.recommendations.edges.length) {
+                return <div className={styles.missing}>No recommendations found</div>
+            }
+            return recommendations.recommendations.edges.map((el: any, index: number) => (
+                <CardMini 
+                    key={`reco-card-${index}`}
+                    anime={el.node.mediaRecommendation} 
+                    isRecommendation={true} 
+                />
+            ))
+        } else {
+            return null;
+        }
+    };
 
     return (
         <div className={styles.tab}>
-            {/* put flex row of 3 cards with forward and back options of CardMini with isRecommendation=true */}
+
+            <img 
+                src={Swoop}
+                alt=""
+                aria-hidden="true"
+            />
+
+            <h3>Recommendations</h3>
+
+            <div className={styles.recommendations}>
+                {recommendationCards()}
+            </div>
         </div>
     )
 };

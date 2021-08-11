@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Genres, SortFilters, AnimeList } from '../application/customTypes';
 import { genreListQuery, searchQuery } from '../api/anilist'
 

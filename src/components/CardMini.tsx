@@ -37,7 +37,7 @@ const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
         } else {
             return title;
         }
-    }
+    };
 
     return (
         <>
