@@ -143,6 +143,13 @@
     grid-template-columns: repeat(3, auto);
     grid-gap: 0.5rem;
 
+    @include respond(landscapePhone) {
+        grid-template-columns: repeat(4, auto);
+    }
+    @include respond(laptop) {
+        grid-template-columns: repeat(5, auto);
+    }
+
     & > button {
         border-radius: 8px;
         font-family: $oswald;

@@ -234,6 +234,58 @@ export function searchQuery (page: number, perPage: number, search: string) {
     return aniListQuery(url, options);
 }
 
+export function topQuery (page: number, perPage: number) {
+    const topListQuery = `
+    query($page: Int, $perPage: Int) {
+        Page(page: $page, perPage: $perPage) {
+            pageInfo {
+                total,
+                currentPage,
+                lastPage,
+                hasNextPage,
+                perPage
+            }
+            media(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC]) {
+                id,
+                title {
+                    english,
+                    native,
+                    romaji
+                },
+                episodes,
+                averageScore,
+                popularity,
+                coverImage {
+                    extraLarge,
+                    large,
+                    medium,
+                    color
+                }
+            }
+        }
+    }`;
+
+    const variables = {
+        page: page,
+        perPage: perPage
+    };
+
+    const url = 'https://graphql.anilist.co';
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query: topListQuery,
+            variables: variables
+        })
+    };
+
+    return aniListQuery(url, options);
+}
+
 async function aniListQuery(url: string, options: object) {
     
     const anime = fetch(url, options)

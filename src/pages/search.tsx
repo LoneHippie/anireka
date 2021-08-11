@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Genres, SortFilters, AnimeList } from '../application/customTypes';
-import { genreListQuery, searchQuery } from '../api/anilist'
+import { genreListQuery, searchQuery, topQuery } from '../api/anilist'
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 import HeaderSearch from '../components/HeaderSearch';
 import CardGrid from '../components/CardGrid';
@@ -15,9 +16,9 @@ const Search: React.FC<{}> = () => {
         Top,
         Genre,
         Search
-    }
+    };
 
-    const [ gridType, setGridType ] = useState<GridType>(GridType.Search);
+    const [ gridType, setGridType ] = useState<GridType>(GridType.Top);
     const [ isGridLoading, setIsGridLoading ] = useState<boolean>(true);
 
     const [ gridGenres, setGridGenres ] = useState<Array<Genres>>([]);
@@ -28,6 +29,30 @@ const Search: React.FC<{}> = () => {
 
     const [ animeList, setAnimeList ] = useState<AnimeList | null>(null);
 
+    const { screenWidth } = useWindowDimensions();
+
+    let perPageCount: number = 20;
+
+    if (screenWidth) {
+        switch(true) {
+            case screenWidth < 400:
+                perPageCount = 20;
+                break;
+            case screenWidth >= 568 && screenWidth < 768:
+                perPageCount = 30;
+                break;
+            case screenWidth >= 768 && screenWidth < 1024:
+                perPageCount = 40;
+                break;
+            default:
+                perPageCount = 50;
+        }
+    };
+
+    useEffect(() => {
+        queryHandlers.topSearch(1);
+    }, [])
+
     //query functions to be used by search handlers
     const queryHandlers = {
         genreSearch: (page: number, genres: Genres[], sorts: SortFilters[]) => {
@@ -36,9 +61,8 @@ const Search: React.FC<{}> = () => {
             setActiveGenres(genres);
             setGridType(GridType.Genre);
 
-            genreListQuery(page, 20, genres, sorts)
+            genreListQuery(page, perPageCount, genres, sorts)
                 .then((data) => {
-                    console.log(data.data.Page);
                     setAnimeList(data.data.Page);
                     setIsGridLoading(false);
                 });
@@ -49,9 +73,18 @@ const Search: React.FC<{}> = () => {
             setAciveSearch(search);
             setGridType(GridType.Search);
 
-            searchQuery(page, 20, search)
+            searchQuery(page, perPageCount, search)
                 .then((data) => {
-                    console.log(data.data.Page);
+                    setAnimeList(data.data.Page);
+                    setIsGridLoading(false);
+                });
+        },
+        topSearch: (page: number) => {
+            setIsGridLoading(true);
+            setGridType(GridType.Top);
+
+            topQuery(page, perPageCount)
+                .then((data) => {
                     setAnimeList(data.data.Page);
                     setIsGridLoading(false);
                 });
@@ -80,6 +113,9 @@ const Search: React.FC<{}> = () => {
             }
             if (gridType === GridType.Genre) {
                 queryHandlers.genreSearch(page, activeGenres, [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC]);
+            }
+            if (gridType === GridType.Top) {
+                queryHandlers.topSearch(page);
             }
         }
     };
