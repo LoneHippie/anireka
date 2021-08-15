@@ -105,7 +105,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
         }
 
         return pages;
-    }
+    };
 
     return (
         <div className={styles.bar}>

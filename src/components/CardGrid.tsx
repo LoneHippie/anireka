@@ -1,23 +1,15 @@
 import React from 'react';
-import { AnimeList, Genres } from '../application/customTypes';
+import { AnimeList } from '../application/customTypes';
 
 import CardMini from './CardMini';
 
 import styles from './CardGrid.module.scss';
 
-enum GridType {
-    Top,
-    Genre,
-    Search
-}
-
 interface Props {
-    gridType: GridType;
-    gridGenres: Array<Genres>;
     animeList: AnimeList | null;
 }
 
-const CardGrid: React.FC<Props> = ({ gridType, gridGenres, animeList }) => {
+const CardGrid: React.FC<Props> = ({ animeList }) => {
 
     const generateGrid: any = () => {
         if (!animeList) return null;
@@ -26,6 +18,7 @@ const CardGrid: React.FC<Props> = ({ gridType, gridGenres, animeList }) => {
             <CardMini 
                 key={`mini-card-${index}`}
                 anime={el}
+                index={index}
                 isRecommendation={false}
             />
         ))

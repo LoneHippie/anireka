@@ -51,7 +51,7 @@ const Search: React.FC<{}> = () => {
 
     useEffect(() => {
         queryHandlers.topSearch(1);
-    }, [])
+    }, []);
 
     //query functions to be used by search handlers
     const queryHandlers = {
@@ -156,8 +156,6 @@ const Search: React.FC<{}> = () => {
                         <CardGridLoading />
                     ) : (
                         <CardGrid 
-                            gridType={gridType}
-                            gridGenres={gridGenres}
                             animeList={animeList}
                         />
                     )

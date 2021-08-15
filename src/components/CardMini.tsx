@@ -11,10 +11,11 @@ import styles from './CardMini.module.scss';
 
 interface Props {
     anime: MediaMini;
+    index?: number;
     isRecommendation: boolean;
 }
 
-const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
+const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
 
     const ref = useRef<HTMLDivElement>(null);
     const inView = useOnScreen(ref);
@@ -43,6 +44,7 @@ const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
         <>
             <div 
                 className={styles.card}
+                tabIndex={index ? index + 1 : 0}
                 ref={ref}
                 style={{
                     transform: inView ? 'translate(0)' : 'translateY(8rem)',
@@ -53,6 +55,11 @@ const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
                         setShowCardOptions(true)
                     } else {
                         console.log('Go to full page');
+                    }
+                }}
+                onBlur={() => {
+                    if (showCardoptions) {
+                        setShowCardOptions(false)
                     }
                 }}
             >

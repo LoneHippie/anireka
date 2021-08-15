@@ -4,7 +4,6 @@
 .card_grid {
     margin: 0 auto;
     margin-top: $header-search-height;
-    width: 100%;
     padding: 1rem 5%;
     height: calc(100vh - 12rem);
     overflow: hidden;
@@ -24,4 +23,9 @@
     }
     gap: 1.2rem;
     justify-items: center;
+
+    // &::after {
+    //     content: "";
+    //     height: 5rem;
+    // }
 }

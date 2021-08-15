@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Genres } from '../application/customTypes';
-
 import { Link } from 'react-router-dom';
+import { Genres } from '../application/customTypes';
 
 import Logo from '../images/anireka.svg';
 import Search from '../images/search.svg';
@@ -46,8 +45,8 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
                     <img 
                         className={styles.home_button}
                         src={Logo}
-                        alt=""
-                        aria-hidden="true"
+                        alt="home"
+                        aria-label="button back to home page"
                     />
                 </Link>
 
@@ -82,8 +81,8 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
                 >
                     <img 
                         src={Options}
-                        alt=""
-                        aria-hidden="true"
+                        alt="search options"
+                        aria-label="open advanced search options"
                     />
                 </button>
             </div>
@@ -106,8 +105,6 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
                         <div className={styles.genre_grid}>
                             { genreButtons() }
                         </div>
-
-                        {/* <h2>Search by Genres</h2> */}
 
                         <button
                             className={styles.genre_search_button}

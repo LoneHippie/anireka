@@ -24,20 +24,17 @@ const RecommendationsTab: React.FC<Props> = ({ sourceID }) => {
     }, [sourceID])
 
     const recommendationCards = () => {
-        if (recommendations) {
-            if (!recommendations.recommendations.edges.length) {
-                return <div className={styles.missing}>No recommendations found</div>
-            }
-            return recommendations.recommendations.edges.map((el: any, index: number) => (
-                <CardMini 
-                    key={`reco-card-${index}`}
-                    anime={el.node.mediaRecommendation} 
-                    isRecommendation={true} 
-                />
-            ))
-        } else {
-            return null;
-        }
+        if (!recommendations) return null;
+
+        if (!recommendations.recommendations.edges.length) return <div className={styles.missing}>No recommendations found</div>;
+
+        return recommendations.recommendations.edges.map((el: any, index: number) => (
+            <CardMini 
+                key={`reco-card-${index}`}
+                anime={el.node.mediaRecommendation} 
+                isRecommendation={true} 
+            />
+        ));
     };
 
     return (
