@@ -39,7 +39,7 @@ export type AnimeList = {
 
 ////////// Single Anime /////////
 
-type Media = {
+export type Anime = {
     id: number,
     title: Title,
     episodes: number,
@@ -53,16 +53,15 @@ type Media = {
     description: string,
     trailer: null | string,
     coverImage: CoverImage,
-    relations: any
-}
-
-type Studio = {
-    name: string
-}
-
-export type Anime = {
-    Media: Media,
-    Studio: Studio
+    relations: any,
+    studios: {
+        edges: {
+            isMain: boolean,
+            node: {
+                name: string
+            }
+        }
+    }
 }
 
 ////////// Enums //////////

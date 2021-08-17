@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { MediaMini } from '../application/customTypes';
 import useOnScreen from '../hooks/useOnScreen';
 
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
+
+    const history = useHistory();
 
     const ref = useRef<HTMLDivElement>(null);
     const inView = useOnScreen(ref);
@@ -54,12 +57,14 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                     if (!isRecommendation) {
                         setShowCardOptions(true)
                     } else {
-                        console.log('Go to full page');
+                        history.push(`/search/${anime.id}`)
                     }
                 }}
                 onBlur={() => {
                     if (showCardoptions) {
-                        setShowCardOptions(false)
+                        setTimeout(() => {
+                            setShowCardOptions(false)
+                        }, 50);
                     }
                 }}
             >
@@ -109,7 +114,9 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                                 className={styles.options_bottom}
                             >
                                 <button
-                                >More Info</button>
+                                >
+                                    <Link to={`/search/${anime.id}`}>More Info</Link>
+                                </button>
 
                                 <button
                                     onClick={() => setShowReccomendations(true)}

@@ -99,10 +99,15 @@ export function singleQuery (animeId: number) {
                     id,
                     relationType
                 }
+            },
+            studios {
+                edges {
+                    isMain,
+                    node {
+                        name
+                    }
+                }
             }
-        }
-        Studio(id: $id) {
-            name
         }
     }`;
 

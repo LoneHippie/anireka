@@ -176,6 +176,11 @@
         @include btnOutline($white);
         font-size: 1.5rem !important;
 
+        & > a {
+            color: $white;
+            text-decoration: none;
+        }
+
         &:hover {
             cursor: pointer;
         }
