@@ -51,16 +51,20 @@ export type Anime = {
     format: string,
     genres: string[],
     description: string,
-    trailer: null | string,
+    trailer: null | {
+        id: string,
+        site: string,
+        thumbnail: string
+    }
     coverImage: CoverImage,
     relations: any,
     studios: {
-        edges: {
+        edges: [{
             isMain: boolean,
             node: {
                 name: string
             }
-        }
+        }]
     }
 }
 

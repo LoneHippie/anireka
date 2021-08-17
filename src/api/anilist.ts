@@ -86,7 +86,9 @@ export function singleQuery (animeId: number) {
             genres,
             description(asHtml: false),
             trailer {
-                id
+                id,
+                site,
+                thumbnail
             },
             coverImage {
                 extraLarge
