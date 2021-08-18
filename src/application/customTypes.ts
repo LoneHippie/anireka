@@ -13,6 +13,16 @@ type CoverImage = {
     color: string
 }
 
+// enum MediaFormat {
+//     TV = 'TV',
+//     TV_SHORT = 'TV Short',
+//     MOVIE = 'Movie',
+//     SPECIAL = 'Special',
+//     OVA = 'OVA',
+//     ONA = 'ONA',
+//     MUSIC = 'Music Video'
+// }
+
 ////////// Anime List //////////
 
 export type Pagination = {

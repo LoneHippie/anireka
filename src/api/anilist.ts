@@ -98,8 +98,10 @@ export function singleQuery (animeId: number) {
             },
             relations {
                 edges {
-                    id,
-                    relationType
+                    relationType,
+                    node {
+                        id
+                    }
                 }
             },
             studios {
