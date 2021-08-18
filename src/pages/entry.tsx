@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Parser from 'react-html-parser';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 import { singleQuery } from '../api/anilist';
 import { Anime } from '../application/customTypes';
 
@@ -25,6 +26,8 @@ interface Props {
 const Entry: React.FC<Props> = ({ match }) => {
 
     const [ anime, setAnime ] = useState<null | Anime>(null);
+
+    const { screenWidth } = useWindowDimensions();
 
     useEffect(() => {
         const animeID = parseInt(match.params.id);
@@ -96,6 +99,46 @@ const Entry: React.FC<Props> = ({ match }) => {
         )
     };
 
+    const animeTrailer = () => {
+        if (!screenWidth) return null;
+
+        if (screenWidth < 768) {
+            if (!anime?.trailer) return <button className={styles.info_trailer_mini} disabled={true}>Trailer &rarr;</button>
+
+            const baseURL = anime?.trailer.site === 'youtube' ? 'https://www.youtube.com/watch?v=' : 'https://vimeo.com/';
+
+            return (
+                <button className={styles.info_trailer_mini}>
+                    <a href={`${baseURL}${anime?.trailer.id}`} target="_blank">Trailer &rarr;</a>
+                </button>
+            )
+        } else {
+            if (!anime?.trailer) {
+                return (
+                    <div className={styles.info_trailer_full_unavailable}>
+                        <div>!</div>
+                        <span>No Trailer Found</span>
+                    </div>
+                )
+            } else {
+                const baseURL = anime?.trailer.site === 'youtube' ? 'https://www.youtube.com/embed/' : 'https://vimeo.com/video/';
+
+                return (
+                    <div className={styles.info_trailer_full}>
+                        <iframe 
+                            title={`${anime.trailer.site} video player for trailer`}
+                            height='100%' width='100%' 
+                            frameBorder="false" 
+                            allow="encrypted-media; gyroscope;" 
+                            allowFullScreen 
+                            src={`${baseURL}${anime.trailer.id}`} 
+                        />
+                    </div>
+                )
+            }
+        }
+    };
+
     return (
         <main className={styles.page}>
             <Navbar />
@@ -104,12 +147,14 @@ const Entry: React.FC<Props> = ({ match }) => {
                     <>
                     <section className={styles.info_top}>
 
+                        <div className={styles.info_top_title}>
+                            <h1>{anime.title.romaji || anime.title.native}</h1>
+                            <h2>{`(${anime.title.english || anime.title.native})`}</h2>
+                        </div>
+
                         <div className={styles.info_top_layout}>
 
                             <div className={styles.info_basic}>
-
-                                <h1>{anime.title.romaji || anime.title.native}</h1>
-                                <h2>{`(${anime.title.english || anime.title.native})`}</h2>
 
                                 <div className={styles.info_card}>
                                     <img 
@@ -126,9 +171,7 @@ const Entry: React.FC<Props> = ({ match }) => {
                                 </div>
                             </div>
 
-                            <div className={styles.info_trailer}>
-                                Preview
-                            </div>
+                            {animeTrailer()}
 
                         </div>
 
