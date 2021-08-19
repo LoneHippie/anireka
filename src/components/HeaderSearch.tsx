@@ -63,10 +63,12 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
                         value={gridSearch}
                         onChange={(e) => handleChangeSearch(e)}
                         onFocus={() => setOptionsActive(false)}
+                        disabled={optionsActive}
                     />
                     <button
                         aria-label="search button"
                         type="submit"
+                        disabled={optionsActive}
                     >
                         <img 
                             src={Search}

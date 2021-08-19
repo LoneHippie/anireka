@@ -69,6 +69,14 @@
         border: none;
 
         color: $black;
+
+        transition: all 250ms;
+
+        &:focus {
+            outline: none;
+            border-bottom: 4px solid $nia-blue-light;
+            padding-top: 0rem;
+        }
     }
 
     & > button {
@@ -77,8 +85,14 @@
         background-color: $nia-blue-light;
         color: $white;
 
+        transition: all 250ms;
+
         &:hover {
             cursor: pointer;
+        }
+
+        &:disabled {
+            background-color: rgba($nia-blue-light, 0.5);
         }
 
         & > img {
@@ -161,6 +175,8 @@
         background: $nia-blue-light;
         color: $white;
         border: none;
+
+        @include focusState($nia-blue-light);
 
         &:hover {
             cursor: pointer;
