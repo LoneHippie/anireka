@@ -36,10 +36,15 @@ const Entry: React.FC<Props> = ({ match }) => {
                 console.log(data.data.Media);
                 setAnime(data.data.Media);
             })
+        window.scrollTo(0, 0);
     }, [match.params.id]);
 
     const animeStudio = () => {
         if (!anime) return 'Unknown';
+
+        const hasMainStudio = anime.studios.edges.some(el => el.isMain);
+
+        if (!hasMainStudio) return anime.studios.edges[0].node.name;
 
         const mainStudio = anime.studios.edges.filter(el => el.isMain);
 
@@ -109,7 +114,7 @@ const Entry: React.FC<Props> = ({ match }) => {
 
             return (
                 <button className={styles.info_trailer_mini}>
-                    <a href={`${baseURL}${anime?.trailer.id}`} target="_blank">Trailer &rarr;</a>
+                    <a href={`${baseURL}${anime?.trailer.id}`} target="_blank" rel="noreferrer">Trailer &rarr;</a>
                 </button>
             )
         } else {
@@ -162,7 +167,7 @@ const Entry: React.FC<Props> = ({ match }) => {
                                         alt={`promotional cover for ${anime.title.english || anime.title.romaji}`}
                                     />
                                     <div className={styles.info_card_stats}>
-                                        <div>Score: {anime.averageScore}</div>
+                                        <div>Score: {anime.averageScore || 'N/A'}</div>
                                         <div>Format: {animeFormat()}</div>
                                         <div>Episodes: {anime.episodes || '-'}</div>
                                         <div>Released: {anime.startDate.year}</div>
@@ -186,7 +191,13 @@ const Entry: React.FC<Props> = ({ match }) => {
                     <section className={styles.summary}>
                         <h3>Summary</h3>
                         <p>
-                            {Parser(anime.description)}
+                            {
+                                anime.description ? (
+                                    Parser(anime.description)
+                                ) : (
+                                    <p>No summary or description found for this title<br></br><br></br><br></br></p>
+                                )
+                            }
                         </p>
                     </section>
 
