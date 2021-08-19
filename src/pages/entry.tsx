@@ -6,6 +6,7 @@ import { singleQuery } from '../api/anilist';
 import { Anime } from '../application/customTypes';
 
 import Navbar from '../components/Navbar';
+import PageLoading from '../components/PageLoading';
 
 import SwoopClip from '../images/swoop_clip.svg';
 import Logo from '../images/anireka.svg';
@@ -39,7 +40,7 @@ const Entry: React.FC<Props> = ({ match }) => {
         window.scrollTo(0, 0);
     }, [match.params.id]);
 
-    const animeStudio = () => {
+    const animeStudio = (): string => {
         if (!anime) return 'Unknown';
 
         const hasMainStudio = anime.studios.edges.some(el => el.isMain);
@@ -51,7 +52,7 @@ const Entry: React.FC<Props> = ({ match }) => {
         return mainStudio[0].node.name;
     };
 
-    const animeFormat = () => {
+    const animeFormat = (): string => {
         if (!anime) return 'Unknown';
 
         switch(true) {
@@ -68,7 +69,7 @@ const Entry: React.FC<Props> = ({ match }) => {
         }
     };
 
-    const prequelLink = () => {
+    const prequelLink = (): JSX.Element => {
         const buttonDisabled = <button disabled={true}>&larr; Prequel</button>;
 
         if (!anime) return buttonDisabled;
@@ -86,7 +87,7 @@ const Entry: React.FC<Props> = ({ match }) => {
         )
     };
 
-    const sequelLink = () => {
+    const sequelLink = (): JSX.Element => {
         const buttonDisabled = <button disabled={true}>Sequel &rarr;</button>;
 
         if (!anime) return buttonDisabled;
@@ -104,7 +105,7 @@ const Entry: React.FC<Props> = ({ match }) => {
         )
     };
 
-    const animeTrailer = () => {
+    const animeTrailer = (): JSX.Element | null => {
         if (!screenWidth) return null;
 
         if (screenWidth < 768) {
@@ -217,7 +218,7 @@ const Entry: React.FC<Props> = ({ match }) => {
                         />
                     </section>
                     </>
-                ) : null
+                ) : <PageLoading />
             }
         </main>
     )

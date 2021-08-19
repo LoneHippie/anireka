@@ -55,7 +55,7 @@ const Search: React.FC<{}> = () => {
 
     //query functions to be used by search handlers
     const queryHandlers = {
-        genreSearch: (page: number, genres: Genres[], sorts: SortFilters[]) => {
+        genreSearch: (page: number, genres: Genres[], sorts: SortFilters[]): void => {
             setIsGridLoading(true);
             //set genres for pagination
             setActiveGenres(genres);
@@ -67,7 +67,7 @@ const Search: React.FC<{}> = () => {
                     setIsGridLoading(false);
                 });
         },
-        termSearch: (page: number, search: string) => {
+        termSearch: (page: number, search: string): void => {
             setIsGridLoading(true);
             //set term used on grid for pagination
             setAciveSearch(search);
@@ -79,7 +79,7 @@ const Search: React.FC<{}> = () => {
                     setIsGridLoading(false);
                 });
         },
-        topSearch: (page: number) => {
+        topSearch: (page: number): void => {
             setIsGridLoading(true);
             setGridType(GridType.Top);
 
@@ -93,7 +93,7 @@ const Search: React.FC<{}> = () => {
 
     //executes query searches from queryHandlers on grid
     const searchHandlers = {
-        handleTermSearch: (e: any) => {
+        handleTermSearch: (e: any): void => {
             e.preventDefault();
 
             if (gridSearch.length < 3) {
@@ -102,12 +102,12 @@ const Search: React.FC<{}> = () => {
                 queryHandlers.termSearch(1, gridSearch);
             }
         },
-        handleSearchGenres: () => {
+        handleSearchGenres: (): void => {
             if (gridGenres.length) {
                 queryHandlers.genreSearch(1, gridGenres, [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC])
             }
         },
-        handlePaginate: (page: number) => { //should change based on gridType
+        handlePaginate: (page: number): void => { //should change based on gridType
             if (gridType === GridType.Search) {
                 queryHandlers.termSearch(page, activeSearch);
             }
@@ -122,10 +122,10 @@ const Search: React.FC<{}> = () => {
 
     //handles changes to search states
     const changeHandlers = {
-        handleChangeSearch: (e: any) => {
+        handleChangeSearch: (e: any): void => {
             setGridSearch(e.target.value);
         },
-        handleChangeGenres: (e: any) => {
+        handleChangeGenres: (e: any): void => {
             if (gridGenres.includes(e.target.innerText)) {
                 setGridGenres(prevState => {
                     return prevState.filter(el => el !== e.target.innerText);

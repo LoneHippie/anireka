@@ -20,13 +20,14 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
 
     const history = useHistory();
 
+    let blurTimer: any; //for preventing blur firing on child elements of component
     const ref = useRef<HTMLDivElement>(null);
     const inView = useOnScreen(ref);
 
     const [ showCardoptions, setShowCardOptions ] = useState<boolean>(false);
     const [ showRecommendations, setShowReccomendations ] = useState<boolean>(false);
 
-    const shortenedTitle = (title: string) => {
+    const shortenedTitle = (title: string): string => {
         let formattedTitle: string | string[];
         let wordLength: number = 9;
 
@@ -60,11 +61,14 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                         history.push(`/search/${anime.id}`)
                     }
                 }}
+                onFocus={() => {
+                    clearTimeout(blurTimer)
+                }}
                 onBlur={() => {
                     if (showCardoptions) {
-                        setTimeout(() => {
+                        blurTimer = setTimeout(() => {
                             setShowCardOptions(false)
-                        }, 50);
+                        });
                     }
                 }}
             >
@@ -114,11 +118,13 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                                 className={styles.options_bottom}
                             >
                                 <button
+                                    id={`btn-info-${index}`}
                                 >
                                     <Link to={`/search/${anime.id}`}>More Info</Link>
                                 </button>
 
                                 <button
+                                    id={`btn-related-${index}`}
                                     onClick={() => setShowReccomendations(true)}
                                 >Related</button>
                             </div>

@@ -18,10 +18,9 @@ const RecommendationsTab: React.FC<Props> = ({ sourceID }) => {
     useEffect(() => {
         recommendationsQuery(sourceID, 1)
             .then(data => {
-                // console.log(data.data.Media);
                 setRecommendations(data.data.Media);
             });
-    }, [sourceID])
+    }, [sourceID]);
 
     const recommendationCards = () => {
         if (!recommendations) return null;

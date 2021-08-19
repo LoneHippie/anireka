@@ -11,7 +11,7 @@ interface Props {
 
 const CardGrid: React.FC<Props> = ({ animeList }) => {
 
-    const generateGrid: any = () => {
+    const generateGrid = () => {
         if (!animeList) return null;
 
         return animeList.media.map((el, index) => (
