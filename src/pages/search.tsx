@@ -18,14 +18,17 @@ const Search: React.FC<{}> = () => {
         Search
     };
 
-    const [ gridType, setGridType ] = useState<GridType>(GridType.Top);
     const [ isGridLoading, setIsGridLoading ] = useState<boolean>(true);
 
-    const [ gridGenres, setGridGenres ] = useState<Array<Genres>>([]);
-    const [ activeGenres, setActiveGenres ] = useState<Array<Genres>>([]);
+    const [ gridType, setGridType ] = useState<GridType>();
+
+    const [ gridPage, setGridPage ] = useState<number>(1);
 
     const [ gridSearch, setGridSearch ] = useState<string>('');
     const [ activeSearch, setAciveSearch ] = useState<string>('');
+
+    const [ gridGenres, setGridGenres ] = useState<Array<Genres>>([]);
+    const [ activeGenres, setActiveGenres ] = useState<Array<Genres>>([]);
 
     const [ animeList, setAnimeList ] = useState<AnimeList | null>(null);
 
@@ -49,9 +52,66 @@ const Search: React.FC<{}> = () => {
         }
     };
 
+    //restore previous search for current session, if first load default to search by top, page 1
     useEffect(() => {
-        queryHandlers.topSearch(1);
+        //fires on first load of session
+        if (!sessionStorage.getItem('type')) {
+            queryHandlers.topSearch(1);
+            return
+        };
+
+        const storedGridType = sessionStorage.getItem('type');
+        const storedPage = sessionStorage.getItem('page');
+
+        //fires on all subsequent reloads of component as the first load must define and store a gridType and gridPage
+        if (storedGridType && storedPage) {
+            if (parseInt(storedGridType) === GridType.Top) {
+                //search top rated, restore current page
+                queryHandlers.topSearch(parseInt(storedPage));
+                return;
+            } 
+            if (parseInt(storedGridType) === GridType.Search) {
+                const storedSearch = sessionStorage.getItem('search');
+
+                if (storedSearch) {
+                    //restore last entered search term for UI
+                    setGridSearch(storedSearch);
+                    //restore previous search with last active term searched and current page
+                    queryHandlers.termSearch(parseInt(storedPage), storedSearch);
+                }
+                return;
+            } 
+            if (parseInt(storedGridType) === GridType.Genre) {
+                const storedGenres = sessionStorage.getItem('genres');
+
+                if (storedGenres) {
+                    //restore selected genres for UI
+                    setGridGenres(JSON.parse(storedGenres));
+                    //restore previous search with active genres and current page
+                    queryHandlers.genreSearch(parseInt(storedPage), JSON.parse(storedGenres), [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC]);
+                }
+                return;
+            }
+        }
     }, []);
+
+    useEffect(() => {
+        sessionStorage.setItem('page', JSON.stringify(gridPage));
+    }, [gridPage]);
+
+    useEffect(() => {
+        if (gridType !== undefined) {
+            sessionStorage.setItem('type', JSON.stringify(gridType));
+        }
+    }, [gridType]);
+
+    useEffect(() => {
+        sessionStorage.setItem('search', activeSearch);
+    }, [activeSearch]);
+
+    useEffect(() => {
+        sessionStorage.setItem('genres', JSON.stringify(activeGenres));
+    }, [activeGenres]);
 
     //query functions to be used by search handlers
     const queryHandlers = {
@@ -60,6 +120,7 @@ const Search: React.FC<{}> = () => {
             //set genres for pagination
             setActiveGenres(genres);
             setGridType(GridType.Genre);
+            setGridPage(page);
 
             genreListQuery(page, perPageCount, genres, sorts)
                 .then((data) => {
@@ -72,6 +133,7 @@ const Search: React.FC<{}> = () => {
             //set term used on grid for pagination
             setAciveSearch(search);
             setGridType(GridType.Search);
+            setGridPage(page);
 
             searchQuery(page, perPageCount, search)
                 .then((data) => {
@@ -82,6 +144,7 @@ const Search: React.FC<{}> = () => {
         topSearch: (page: number): void => {
             setIsGridLoading(true);
             setGridType(GridType.Top);
+            setGridPage(page);
 
             topQuery(page, perPageCount)
                 .then((data) => {
