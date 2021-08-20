@@ -215,6 +215,10 @@ const Search: React.FC<{}> = () => {
                     return [...prevState, e.target.innerText]
                 })
             }
+        },
+        handleChangeAdultContent: (e: any): void => {
+            setAdultContent(e.target.checked);
+            localStorage.setItem('adult', JSON.stringify(e.target.checked));
         }
     };
 
@@ -227,6 +231,8 @@ const Search: React.FC<{}> = () => {
                 handleTermSearch={searchHandlers.handleTermSearch}
                 handleChangeGenres={changeHandlers.handleChangeGenres}
                 handleSearchGenres={searchHandlers.handleSearchGenres}
+                handleChangeAdultContent={changeHandlers.handleChangeAdultContent}
+                adultContent={adultContent}
                 gridGenres={gridGenres}
             />
 

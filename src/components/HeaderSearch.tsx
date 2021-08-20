@@ -5,6 +5,7 @@ import { Genres } from '../application/customTypes';
 import Logo from '../images/anireka.svg';
 import Search from '../images/search.svg';
 import Options from '../images/options.svg';
+import Close from '../images/close.svg';
 
 import styles from './HeaderSearch.module.scss';
 
@@ -14,10 +15,12 @@ interface Props {
     handleTermSearch: (e: any, page: number) => any;
     handleChangeGenres: (e: any) => any;
     handleSearchGenres: () => any;
+    handleChangeAdultContent: (e: any) => any;
+    adultContent: boolean;
     gridGenres: Array<Genres>;
 };
 
-const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleTermSearch, handleChangeGenres, handleSearchGenres, gridGenres }) => {
+const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleTermSearch, handleChangeGenres, handleSearchGenres, handleChangeAdultContent, adultContent, gridGenres }) => {
 
     const [ optionsActive, setOptionsActive ] = useState<boolean>(false);
 
@@ -81,11 +84,21 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
                     className={styles.options_button}
                     onClick={() => setOptionsActive(!optionsActive)}
                 >
-                    <img 
-                        src={Options}
-                        alt="search options"
-                        aria-label="open advanced search options"
-                    />
+                    {
+                        optionsActive ? (
+                            <img 
+                                src={Close}
+                                alt="search options"
+                                aria-label="close advanced search options"
+                            />
+                        ) : (
+                            <img 
+                                src={Options}
+                                alt="search options"
+                                aria-label="open advanced search options"
+                            />
+                        )
+                    }
                 </button>
             </div>
 
@@ -108,16 +121,36 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
                             { genreButtons() }
                         </div>
 
-                        <button
-                            className={styles.genre_search_button}
-                            onClick={() => {
-                                handleSearchGenres();
-                                setOptionsActive(false);
-                            }}
-                            disabled={!gridGenres.length}
-                        >
-                            Search &rarr;
-                        </button>
+                        <div className={styles.search_options_bottom}>
+                            <button
+                                className={styles.genre_search_button}
+                                onClick={() => {
+                                    handleSearchGenres();
+                                    setOptionsActive(false);
+                                }}
+                                disabled={!gridGenres.length}
+                            >
+                                Search &rarr;
+                            </button>
+
+                            <div className={styles.adult_content_switch}>
+                                <h3 style={{color: adultContent ? '#00BDD7' : '#FFFFFF'}}>
+                                    Hentai Results
+                                </h3>
+                                <div className={styles.adult_toggle}>
+                                    <span className={styles.adult_label}>Off</span>
+                                    <input 
+                                        id="adult-toggle"
+                                        type="checkbox"
+                                        className={styles.switch} 
+                                        onChange={(e) => handleChangeAdultContent(e)}
+                                        checked={adultContent}
+                                    />
+                                    <label htmlFor="adult-toggle" className={styles.switch_label}></label>
+                                    <span className={styles.adult_label}>On</span>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 ) : null

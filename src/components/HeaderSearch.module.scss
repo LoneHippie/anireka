@@ -120,6 +120,7 @@
     & > img {
         height: 3.1rem;
         width: auto;
+        padding-top: 0.2rem;
     }
 }
 
@@ -184,12 +185,20 @@
     }
 }
 
+.search_options_bottom {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
 .genre_search_button {
     @include btnPrimary($nia-blue-light);
     border: 2px solid $white;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    margin-left: 1.5rem;
+    // margin-top: 1.5rem;
+    // margin-bottom: 1.5rem;
+    // margin-left: 1.5rem;
 
     transition: all 250ms;
 
@@ -202,6 +211,81 @@
         border: 2px solid rgba($white, 0.5) !important;
         background: none !important;
         color: rgba($white, 0.5) !important;
+    }
+}
+
+.adult_content_switch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > h3 {
+        font-family: $oswald;
+        font-weight: 500;
+        color: $white;
+        font-size: 2rem;
+        line-height: 75%;
+
+        transform: translateY(-0.5rem);
+    }
+}
+
+.adult_toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+
+    cursor: default;
+}
+
+.adult_label {
+    padding: 0 0.5rem;
+    font-size: 2rem;
+    font-family: $oswald;
+    font-weight: 500;
+    color: $white;
+}
+
+.switch {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+
+    &:checked + label {
+        background-color: rgba($nia-blue-light, 0.8);
+    }
+
+    &:checked + label:after {
+        left: calc(100% - 0.25rem);
+        transform: translateX(-100%);
+    }
+
+    &:active:after {
+        width: 6.5rem;
+    }
+}
+
+.switch_label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 6rem; //everything must be 50% of this
+    height: 2.5rem;
+    background-color: rgba($white, 0.4);
+    display: block;
+    border-radius: 100px;
+    position: relative;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: 0.255rem;
+        left: 0.255rem;
+        width: 2rem;
+        height: 2rem;
+        background: $white;
+        border-radius: 90px;
+        transition: 0.3s ease-out;
     }
 }
 
