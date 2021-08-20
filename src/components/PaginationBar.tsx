@@ -33,6 +33,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                 pages.push(
                     <button
                         key={`to-page-${i}-short`}
+                        aria-label={`navigate to page ${i} of results`}
                         onClick={() => handlePaginate(i)}
                         disabled={ pageInfo.currentPage === i ? true : false }
                     >
@@ -46,6 +47,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                     pages.push(
                         <button
                             key={`to-page-${i}`}
+                            aria-label={`navigate to page ${i} of results`}
                             onClick={() => handlePaginate(i)}
                             disabled={ pageInfo.currentPage === i ? true : false }
                         >
@@ -57,6 +59,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                 pages.push(
                     <button
                         key={`page-back`}
+                        aria-label={`navigate to page ${pageInfo.currentPage - 1} of results`}
                         onClick={() => handlePaginate(pageInfo.currentPage - 1)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage - 1 ? true : false }
                     >
@@ -64,6 +67,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                     </button>,
                     <button
                         key={`current-page`}
+                        aria-label={`navigate to page ${pageInfo.currentPage} of results`}
                         onClick={() => handlePaginate(pageInfo.currentPage)}
                         disabled={ true }
                     >
@@ -71,6 +75,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                     </button>,
                     <button
                         key={`page-next`}
+                        aria-label={`navigate to page ${pageInfo.currentPage + 1} of results`}
                         onClick={() => handlePaginate(pageInfo.currentPage + 1)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage + 1 ? true : false }
                     >
@@ -81,6 +86,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                 pages.push(
                     <button
                         key={`page-back-2`}
+                        aria-label={`navigate to page ${pageInfo.currentPage - 2} of results`}
                         onClick={() => handlePaginate(pageInfo.currentPage - 2)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage - 2 ? true : false }
                     >
@@ -88,6 +94,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                     </button>,
                     <button
                         key={`page-back-1`}
+                        aria-label={`navigate to page ${pageInfo.currentPage - 1} of results`}
                         onClick={() => handlePaginate(pageInfo.currentPage - 1)}
                         disabled={ pageInfo.currentPage === pageInfo.currentPage - 1 ? true : false }
                     >
@@ -95,6 +102,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                     </button>,
                     <button
                         key={`page-last`}
+                        aria-label={`navigate to page ${pageInfo.currentPage} of results`}
                         onClick={() => handlePaginate(pageInfo.currentPage)}
                         disabled={ pageInfo.currentPage === pageInfo.lastPage ? true : false }
                     >
@@ -115,6 +123,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                 ) : (
                     <>
                         <button
+                            aria-label="navigate to first page of results"
                             onClick={() => handlePaginate(1)}
                         >
                             <img 
@@ -126,6 +135,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                         </button>
 
                         <button
+                            aria-label="navigate back one page of results"
                             onClick={() => handlePaginate((pageInfo.currentPage - 1))}
                         >
                             <img 
@@ -147,6 +157,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                 ) : (
                     <>
                         <button
+                            aria-label="navigate to next page of results"
                             onClick={() => handlePaginate((pageInfo.currentPage + 1))}
                         >
                             <img 
@@ -158,6 +169,7 @@ const PaginationBar: React.FC<Props> = ({ pageInfo, handlePaginate }) => {
                         </button>
 
                         <button
+                            aria-label="navigate to final page of results"
                             onClick={() => handlePaginate(pageInfo.lastPage)}
                         >
                             <img 

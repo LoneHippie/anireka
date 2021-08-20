@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { MediaMini } from '../application/customTypes';
 import useOnScreen from '../hooks/useOnScreen';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 import RecommendationsTab from './RecommendationsTab';
 
@@ -21,8 +22,11 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
     const history = useHistory();
 
     let blurTimer: any; //for preventing blur firing on child elements of component
+
     const ref = useRef<HTMLDivElement>(null);
     const inView = useOnScreen(ref);
+
+    const { screenWidth } = useWindowDimensions();
 
     const [ showCardoptions, setShowCardOptions ] = useState<boolean>(false);
     const [ showRecommendations, setShowReccomendations ] = useState<boolean>(false);
@@ -47,7 +51,7 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
         <>
             <div 
                 className={styles.card}
-                tabIndex={index ? index + 1 : 0}
+                tabIndex={0}
                 ref={ref}
                 style={{
                     transform: inView ? 'translate(0)' : 'translateY(8rem)',
@@ -93,7 +97,7 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
 
                 <div className={styles.coverimage}>
                     <img 
-                        src={anime.coverImage.large ? anime.coverImage.large : anime.coverImage.medium}
+                        src={anime.coverImage.large || anime.coverImage.medium}
                         alt=""
                         aria-hidden="true"
                         loading="eager"
