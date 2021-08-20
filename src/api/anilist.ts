@@ -136,9 +136,9 @@ export function singleQuery (animeId: number) {
 }
 
 //set with data.data.Page
-export function genreListQuery (page: number, perPage: number, genres: Genres[], sort: SortFilters[]) {
+export function genreListQuery (page: number, perPage: number, genres: Genres[], sort: SortFilters[], isAdult: boolean) {
     const listQuery = `
-    query($page: Int, $perPage: Int, $genres: [String], $sort: [MediaSort]) {
+    query($page: Int, $perPage: Int, $genres: [String], $sort: [MediaSort], $isAdult: Boolean) {
         Page(page: $page, perPage: $perPage) {
             pageInfo {
                 total,
@@ -147,7 +147,7 @@ export function genreListQuery (page: number, perPage: number, genres: Genres[],
                 hasNextPage,
                 perPage
             }
-            media(type: ANIME, genre_in: $genres, sort: $sort) {
+            media(type: ANIME, genre_in: $genres, sort: $sort, isAdult: $isAdult) {
                 id,
                 title {
                     english,
@@ -171,7 +171,8 @@ export function genreListQuery (page: number, perPage: number, genres: Genres[],
         page: page,
         perPage: perPage,
         genres: genres,
-        sort: sort
+        sort: sort,
+        isAdult: isAdult
     };
 
     const url = 'https://graphql.anilist.co';
@@ -190,9 +191,9 @@ export function genreListQuery (page: number, perPage: number, genres: Genres[],
     return aniListQuery(url, options);
 }
 
-export function searchQuery (page: number, perPage: number, search: string) {
+export function searchQuery (page: number, perPage: number, search: string, isAdult: boolean) {
     const searchQuery = `
-    query($page: Int, $perPage: Int, $search: String) {
+    query($page: Int, $perPage: Int, $search: String, $isAdult: Boolean) {
         Page(page: $page, perPage: $perPage) {
             pageInfo {
                 total,
@@ -201,7 +202,7 @@ export function searchQuery (page: number, perPage: number, search: string) {
                 hasNextPage,
                 perPage
             }
-            media(type: ANIME, search: $search, sort: [SEARCH_MATCH]) {
+            media(type: ANIME, search: $search, sort: [SCORE_DESC, SEARCH_MATCH], isAdult: $isAdult) {
                 id,
                 title {
                     english,
@@ -224,7 +225,8 @@ export function searchQuery (page: number, perPage: number, search: string) {
     const variables = {
         page: page,
         perPage: perPage,
-        search: search
+        search: search,
+        isAdult: isAdult
     };
 
     const url = 'https://graphql.anilist.co';
@@ -243,9 +245,9 @@ export function searchQuery (page: number, perPage: number, search: string) {
     return aniListQuery(url, options);
 }
 
-export function topQuery (page: number, perPage: number) {
+export function topQuery (page: number, perPage: number, isAdult: boolean) {
     const topListQuery = `
-    query($page: Int, $perPage: Int) {
+    query($page: Int, $perPage: Int, $isAdult: Boolean) {
         Page(page: $page, perPage: $perPage) {
             pageInfo {
                 total,
@@ -254,7 +256,7 @@ export function topQuery (page: number, perPage: number) {
                 hasNextPage,
                 perPage
             }
-            media(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC]) {
+            media(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC], isAdult: $isAdult) {
                 id,
                 title {
                     english,
@@ -276,7 +278,8 @@ export function topQuery (page: number, perPage: number) {
 
     const variables = {
         page: page,
-        perPage: perPage
+        perPage: perPage,
+        isAdult: isAdult
     };
 
     const url = 'https://graphql.anilist.co';

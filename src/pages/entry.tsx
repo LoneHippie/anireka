@@ -42,6 +42,7 @@ const Entry: React.FC<Props> = ({ match }) => {
 
     const animeStudio = (): string => {
         if (!anime) return 'Unknown';
+        if (!anime.studios.edges.length) return 'Unknown';
 
         const hasMainStudio = anime.studios.edges.some(el => el.isMain);
 
@@ -63,7 +64,7 @@ const Entry: React.FC<Props> = ({ match }) => {
             case anime.format === 'SPECIAL':
                 return 'Special';
             case anime.format === 'MUSIC':
-                return 'Music Format';
+                return 'Music Video';
             default:
                 return anime.format;
         }
@@ -196,7 +197,10 @@ const Entry: React.FC<Props> = ({ match }) => {
                                 anime.description ? (
                                     Parser(anime.description)
                                 ) : (
-                                    <p>No summary or description found for this title<br></br><br></br><br></br></p>
+                                    <p>
+                                        No summary or description found for this title
+                                        <br></br><br></br><br></br>
+                                    </p>
                                 )
                             }
                         </p>

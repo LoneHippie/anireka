@@ -24,6 +24,8 @@ const Search: React.FC<{}> = () => {
 
     const [ gridPage, setGridPage ] = useState<number>(1);
 
+    const [ adultContent, setAdultContent ] = useState<boolean>(false);
+
     const [ gridSearch, setGridSearch ] = useState<string>('');
     const [ activeSearch, setAciveSearch ] = useState<string>('');
 
@@ -54,9 +56,17 @@ const Search: React.FC<{}> = () => {
 
     //restore previous search for current session, if first load default to search by top, page 1
     useEffect(() => {
+        if (localStorage.getItem('adult')) {
+            const isAdultContent = localStorage.getItem('adult');
+
+            if (isAdultContent) {
+                if (JSON.parse(isAdultContent)) setAdultContent(JSON.parse(isAdultContent));
+            }
+        };
+
         //fires on first load of session
         if (!sessionStorage.getItem('type')) {
-            queryHandlers.topSearch(1);
+            queryHandlers.topSearch(1, adultContent);
             return
         };
 
@@ -67,7 +77,7 @@ const Search: React.FC<{}> = () => {
         if (storedGridType && storedPage) {
             if (parseInt(storedGridType) === GridType.Top) {
                 //search top rated, restore current page
-                queryHandlers.topSearch(parseInt(storedPage));
+                queryHandlers.topSearch(parseInt(storedPage), adultContent);
                 return;
             } 
             if (parseInt(storedGridType) === GridType.Search) {
@@ -77,7 +87,7 @@ const Search: React.FC<{}> = () => {
                     //restore last entered search term for UI
                     setGridSearch(storedSearch);
                     //restore previous search with last active term searched and current page
-                    queryHandlers.termSearch(parseInt(storedPage), storedSearch);
+                    queryHandlers.termSearch(parseInt(storedPage), storedSearch, adultContent);
                 }
                 return;
             } 
@@ -88,7 +98,12 @@ const Search: React.FC<{}> = () => {
                     //restore selected genres for UI
                     setGridGenres(JSON.parse(storedGenres));
                     //restore previous search with active genres and current page
-                    queryHandlers.genreSearch(parseInt(storedPage), JSON.parse(storedGenres), [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC]);
+                    queryHandlers.genreSearch(
+                        parseInt(storedPage), 
+                        JSON.parse(storedGenres), 
+                        [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC],
+                        adultContent
+                    );
                 }
                 return;
             }
@@ -115,38 +130,38 @@ const Search: React.FC<{}> = () => {
 
     //query functions to be used by search handlers
     const queryHandlers = {
-        genreSearch: (page: number, genres: Genres[], sorts: SortFilters[]): void => {
+        genreSearch: (page: number, genres: Genres[], sorts: SortFilters[], adultContent: boolean): void => {
             setIsGridLoading(true);
             //set genres for pagination
             setActiveGenres(genres);
             setGridType(GridType.Genre);
             setGridPage(page);
 
-            genreListQuery(page, perPageCount, genres, sorts)
+            genreListQuery(page, perPageCount, genres, sorts, adultContent)
                 .then((data) => {
                     setAnimeList(data.data.Page);
                     setIsGridLoading(false);
                 });
         },
-        termSearch: (page: number, search: string): void => {
+        termSearch: (page: number, search: string, adultContent: boolean): void => {
             setIsGridLoading(true);
             //set term used on grid for pagination
             setAciveSearch(search);
             setGridType(GridType.Search);
             setGridPage(page);
 
-            searchQuery(page, perPageCount, search)
+            searchQuery(page, perPageCount, search, adultContent)
                 .then((data) => {
                     setAnimeList(data.data.Page);
                     setIsGridLoading(false);
                 });
         },
-        topSearch: (page: number): void => {
+        topSearch: (page: number, adultContent: boolean): void => {
             setIsGridLoading(true);
             setGridType(GridType.Top);
             setGridPage(page);
 
-            topQuery(page, perPageCount)
+            topQuery(page, perPageCount, adultContent)
                 .then((data) => {
                     setAnimeList(data.data.Page);
                     setIsGridLoading(false);
@@ -162,23 +177,25 @@ const Search: React.FC<{}> = () => {
             if (gridSearch.length < 3) {
                 return 
             } else {
-                queryHandlers.termSearch(1, gridSearch);
+                setGridGenres([]); //empty grid search
+                queryHandlers.termSearch(1, gridSearch, adultContent);
             }
         },
         handleSearchGenres: (): void => {
             if (gridGenres.length) {
-                queryHandlers.genreSearch(1, gridGenres, [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC])
+                setGridSearch(''); //empty searchbar
+                queryHandlers.genreSearch(1, gridGenres, [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC], adultContent)
             }
         },
         handlePaginate: (page: number): void => { //should change based on gridType
             if (gridType === GridType.Search) {
-                queryHandlers.termSearch(page, activeSearch);
+                queryHandlers.termSearch(page, activeSearch, adultContent);
             }
             if (gridType === GridType.Genre) {
-                queryHandlers.genreSearch(page, activeGenres, [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC]);
+                queryHandlers.genreSearch(page, activeGenres, [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC], adultContent);
             }
             if (gridType === GridType.Top) {
-                queryHandlers.topSearch(page);
+                queryHandlers.topSearch(page, adultContent);
             }
         }
     };
