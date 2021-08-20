@@ -54,10 +54,12 @@ const Search: React.FC<{}> = () => {
         }
     };
 
-    //restore previous search for current session, if first load default to search by top, page 1
+    //restore previous search for current session, check localStorage for search preferences, if first load default to search by top, page 1
     useEffect(() => {
+        let isAdultContent;
+
         if (localStorage.getItem('adult')) {
-            const isAdultContent = localStorage.getItem('adult');
+            isAdultContent = localStorage.getItem('adult');
 
             if (isAdultContent) {
                 if (JSON.parse(isAdultContent)) setAdultContent(JSON.parse(isAdultContent));
@@ -66,8 +68,12 @@ const Search: React.FC<{}> = () => {
 
         //fires on first load of session
         if (!sessionStorage.getItem('type')) {
-            queryHandlers.topSearch(1, adultContent);
-            return
+            if (isAdultContent) {
+                queryHandlers.topSearch(1, JSON.parse(isAdultContent));
+            } else {
+                queryHandlers.topSearch(1, adultContent);
+            }
+            return;
         };
 
         const storedGridType = sessionStorage.getItem('type');
@@ -77,7 +83,11 @@ const Search: React.FC<{}> = () => {
         if (storedGridType && storedPage) {
             if (parseInt(storedGridType) === GridType.Top) {
                 //search top rated, restore current page
-                queryHandlers.topSearch(parseInt(storedPage), adultContent);
+                if (isAdultContent) {
+                    queryHandlers.topSearch(parseInt(storedPage), JSON.parse(isAdultContent));
+                } else {
+                    queryHandlers.topSearch(parseInt(storedPage), adultContent);
+                }
                 return;
             } 
             if (parseInt(storedGridType) === GridType.Search) {
@@ -87,7 +97,11 @@ const Search: React.FC<{}> = () => {
                     //restore last entered search term for UI
                     setGridSearch(storedSearch);
                     //restore previous search with last active term searched and current page
-                    queryHandlers.termSearch(parseInt(storedPage), storedSearch, adultContent);
+                    if (isAdultContent) {
+                        queryHandlers.termSearch(parseInt(storedPage), storedSearch, JSON.parse(isAdultContent));
+                    } else {
+                        queryHandlers.termSearch(parseInt(storedPage), storedSearch, adultContent);
+                    }
                 }
                 return;
             } 
@@ -98,12 +112,21 @@ const Search: React.FC<{}> = () => {
                     //restore selected genres for UI
                     setGridGenres(JSON.parse(storedGenres));
                     //restore previous search with active genres and current page
-                    queryHandlers.genreSearch(
-                        parseInt(storedPage), 
-                        JSON.parse(storedGenres), 
-                        [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC],
-                        adultContent
-                    );
+                    if (isAdultContent) {
+                        queryHandlers.genreSearch(
+                            parseInt(storedPage), 
+                            JSON.parse(storedGenres), 
+                            [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC],
+                            JSON.parse(isAdultContent)
+                        );
+                    } else {
+                        queryHandlers.genreSearch(
+                            parseInt(storedPage), 
+                            JSON.parse(storedGenres), 
+                            [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC],
+                            adultContent
+                        );
+                    }
                 }
                 return;
             }

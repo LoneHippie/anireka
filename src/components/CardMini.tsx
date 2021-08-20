@@ -34,7 +34,6 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
         formattedTitle = title.split(' ');
 
         if (formattedTitle.length > wordLength) {
-            console.log(`long title found: ${formattedTitle}`)
             for (let i = formattedTitle.length; i > wordLength; i--) {
                 formattedTitle.pop();
             }

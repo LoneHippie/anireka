@@ -34,7 +34,7 @@ const Entry: React.FC<Props> = ({ match }) => {
         const animeID = parseInt(match.params.id);
         singleQuery(animeID)
             .then((data) => {
-                console.log(data.data.Media);
+                // console.log(data.data.Media);
                 setAnime(data.data.Media);
             })
         window.scrollTo(0, 0);

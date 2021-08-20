@@ -8,7 +8,6 @@
     height: calc(100vh - 12rem);
     overflow: hidden;
     overflow-y: scroll;
-    // border: 2px solid magenta;
 
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -23,9 +22,4 @@
     }
     gap: 1.2rem;
     justify-items: center;
-
-    // &::after {
-    //     content: "";
-    //     height: 5rem;
-    // }
 }
