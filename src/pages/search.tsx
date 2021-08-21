@@ -3,10 +3,8 @@ import { Genres, SortFilters, AnimeList } from '../application/customTypes';
 import { genreListQuery, searchQuery, topQuery } from '../api/anilist'
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
-import HeaderSearch from '../components/HeaderSearch';
 import CardGridLoading from '../components/CardGridLoading';
 import CardGridOffline from '../components/CardGridOffline';
-import PaginationBar from '../components/PaginationBar';
 
 import styles from './search.module.scss';
 
@@ -18,8 +16,10 @@ const Search: React.FC<{}> = () => {
         Search
     };
 
-    //lazy load CardGrid to improve performance
+    //lazy load to improve performance
     const CardGrid = React.lazy(() => import('../components/CardGrid'));
+    const PaginationBar = React.lazy(() => import('../components/PaginationBar'));
+    const HeaderSearch = React.lazy(() => import('../components/HeaderSearch'));
     //global grid state
     const [ isGridLoading, setIsGridLoading ] = useState<boolean>(true);
     const [ gridType, setGridType ] = useState<GridType>();
@@ -256,42 +256,42 @@ const Search: React.FC<{}> = () => {
         }
     };
 
+    const gridBodyRender = () => {
+        if (isGridLoading) return <CardGridLoading />
+
+        return clientHasConnection ? (
+            <CardGrid animeList={animeList} />
+        ) : <CardGridOffline />
+    };
+
     return (
         <main>
 
-            <HeaderSearch 
-                gridSearch={gridSearch}
-                handleChangeSearch={changeHandlers.handleChangeSearch}
-                handleTermSearch={searchHandlers.handleTermSearch}
-                handleChangeGenres={changeHandlers.handleChangeGenres}
-                handleSearchGenres={searchHandlers.handleSearchGenres}
-                handleChangeAdultContent={changeHandlers.handleChangeAdultContent}
-                adultContent={adultContent}
-                gridGenres={gridGenres}
-            />
+            <Suspense fallback={<div></div>}>
+                <HeaderSearch 
+                    gridSearch={gridSearch}
+                    handleChangeSearch={changeHandlers.handleChangeSearch}
+                    handleTermSearch={searchHandlers.handleTermSearch}
+                    handleChangeGenres={changeHandlers.handleChangeGenres}
+                    handleSearchGenres={searchHandlers.handleSearchGenres}
+                    handleChangeAdultContent={changeHandlers.handleChangeAdultContent}
+                    adultContent={adultContent}
+                    gridGenres={gridGenres}
+                />
+            </Suspense>
 
             <section className={styles.grid_body}>
-                {
-                    isGridLoading ? (
-                        <CardGridLoading />
-                    ) : (
-                        clientHasConnection ? (
-                            <Suspense fallback={<div>Loading...</div>}>
-                                <CardGrid 
-                                    animeList={animeList}
-                                />
-                            </Suspense>
-                        ) : (
-                            <CardGridOffline />
-                        )
-                    )
-                }
+                <Suspense fallback={<div></div>}>
+                    { gridBodyRender() }
+                </Suspense>
             </section>
 
-            <PaginationBar 
-                pageInfo={animeList?.pageInfo}
-                handlePaginate={searchHandlers.handlePaginate}
-            />
+            <Suspense fallback={<div></div>}>
+                <PaginationBar 
+                    pageInfo={animeList?.pageInfo}
+                    handlePaginate={searchHandlers.handlePaginate}
+                />
+            </Suspense>
 
         </main>
     )
