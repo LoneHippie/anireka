@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { Genres, SortFilters, AnimeList } from '../application/customTypes';
 import { genreListQuery, searchQuery, topQuery } from '../api/anilist'
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
 import HeaderSearch from '../components/HeaderSearch';
-import CardGrid from '../components/CardGrid';
 import CardGridLoading from '../components/CardGridLoading';
 import CardGridOffline from '../components/CardGridOffline';
 import PaginationBar from '../components/PaginationBar';
@@ -19,20 +18,21 @@ const Search: React.FC<{}> = () => {
         Search
     };
 
+    //lazy load CardGrid to improve performance
+    const CardGrid = React.lazy(() => import('../components/CardGrid'));
+    //global grid state
     const [ isGridLoading, setIsGridLoading ] = useState<boolean>(true);
-
     const [ gridType, setGridType ] = useState<GridType>();
-
     const [ gridPage, setGridPage ] = useState<number>(1);
-
+    //adult content toggle state
     const [ adultContent, setAdultContent ] = useState<boolean>(false);
-
+    //grid term search state
     const [ gridSearch, setGridSearch ] = useState<string>('');
     const [ activeSearch, setAciveSearch ] = useState<string>('');
-
+    //grid genre state
     const [ gridGenres, setGridGenres ] = useState<Array<Genres>>([]);
     const [ activeGenres, setActiveGenres ] = useState<Array<Genres>>([]);
-
+    
     const [ clientHasConnection, setClientHasConnection ] = useState<boolean>(true);
 
     const [ animeList, setAnimeList ] = useState<AnimeList | null>(null);
@@ -276,10 +276,14 @@ const Search: React.FC<{}> = () => {
                         <CardGridLoading />
                     ) : (
                         clientHasConnection ? (
-                            <CardGrid 
-                                animeList={animeList}
-                            />
-                        ) : <CardGridOffline />
+                            <Suspense fallback={<div>Loading...</div>}>
+                                <CardGrid 
+                                    animeList={animeList}
+                                />
+                            </Suspense>
+                        ) : (
+                            <CardGridOffline />
+                        )
                     )
                 }
             </section>
