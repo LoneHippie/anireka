@@ -9,11 +9,11 @@ const self = this;
 
 //install sw
 self.addEventListener('install', (event) => {
-    console.log('installing service worker');
+    console.log('Service worker: installing');
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then((cache) => {
-                console.log('caching assets');
+                console.log('Service worker: caching assets');
                 cache.addAll(urlsToCache);
             })
             .then(() => self.skipWaiting())
@@ -27,7 +27,7 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((cacheNames) => Promise.all(
             cacheNames.map((cacheName) => {
                 if (cacheName !== CACHE_NAME) {
-                    console.log('service worker clearing old cache');
+                    console.log('service worker: clearing old cache');
                     return caches.delete(cacheName);
                 }
             })
