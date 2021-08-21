@@ -6,6 +6,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions';
 import HeaderSearch from '../components/HeaderSearch';
 import CardGrid from '../components/CardGrid';
 import CardGridLoading from '../components/CardGridLoading';
+import CardGridOffline from '../components/CardGridOffline';
 import PaginationBar from '../components/PaginationBar';
 
 import styles from './search.module.scss';
@@ -31,6 +32,8 @@ const Search: React.FC<{}> = () => {
 
     const [ gridGenres, setGridGenres ] = useState<Array<Genres>>([]);
     const [ activeGenres, setActiveGenres ] = useState<Array<Genres>>([]);
+
+    const [ clientHasConnection, setClientHasConnection ] = useState<boolean>(true);
 
     const [ animeList, setAnimeList ] = useState<AnimeList | null>(null);
 
@@ -151,9 +154,21 @@ const Search: React.FC<{}> = () => {
         sessionStorage.setItem('genres', JSON.stringify(activeGenres));
     }, [activeGenres]);
 
+    const responseHandlers = {
+        setData: (data: any): void => {
+            setAnimeList(data.data.Page);
+            setIsGridLoading(false);
+        },
+        setOffline: (): void => {
+            setIsGridLoading(false);
+            setClientHasConnection(false)
+        }
+    }
+
     //query functions to be used by search handlers
     const queryHandlers = {
         genreSearch: (page: number, genres: Genres[], sorts: SortFilters[], adultContent: boolean): void => {
+            setClientHasConnection(true);
             setIsGridLoading(true);
             //set genres for pagination
             setActiveGenres(genres);
@@ -161,12 +176,11 @@ const Search: React.FC<{}> = () => {
             setGridPage(page);
 
             genreListQuery(page, perPageCount, genres, sorts, adultContent)
-                .then((data) => {
-                    setAnimeList(data.data.Page);
-                    setIsGridLoading(false);
-                });
+                .then(responseHandlers.setData)
+                .catch(responseHandlers.setOffline);
         },
         termSearch: (page: number, search: string, adultContent: boolean): void => {
+            setClientHasConnection(true);
             setIsGridLoading(true);
             //set term used on grid for pagination
             setAciveSearch(search);
@@ -174,21 +188,18 @@ const Search: React.FC<{}> = () => {
             setGridPage(page);
 
             searchQuery(page, perPageCount, search, adultContent)
-                .then((data) => {
-                    setAnimeList(data.data.Page);
-                    setIsGridLoading(false);
-                });
+                .then(responseHandlers.setData)
+                .catch(responseHandlers.setOffline);
         },
         topSearch: (page: number, adultContent: boolean): void => {
+            setClientHasConnection(true);
             setIsGridLoading(true);
             setGridType(GridType.Top);
             setGridPage(page);
 
             topQuery(page, perPageCount, adultContent)
-                .then((data) => {
-                    setAnimeList(data.data.Page);
-                    setIsGridLoading(false);
-                });
+                .then(responseHandlers.setData)
+                .catch(responseHandlers.setOffline);
         }
     };
 
@@ -264,9 +275,11 @@ const Search: React.FC<{}> = () => {
                     isGridLoading ? (
                         <CardGridLoading />
                     ) : (
-                        <CardGrid 
-                            animeList={animeList}
-                        />
+                        clientHasConnection ? (
+                            <CardGrid 
+                                animeList={animeList}
+                            />
+                        ) : <CardGridOffline />
                     )
                 }
             </section>
