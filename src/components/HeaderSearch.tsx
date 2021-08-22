@@ -24,6 +24,8 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
 
     const [ optionsActive, setOptionsActive ] = useState<boolean>(false);
 
+    console.log('header render');
+
     const genreButtons = () => {
         return Object.values(Genres).map((el, index) => (
             <button

@@ -8,6 +8,8 @@ import CardGridOffline from '../components/CardGridOffline';
 
 import styles from './search.module.scss';
 
+///// Add placeholder for suspense fallbacks that take up the same space as the components
+
 const Search: React.FC<{}> = () => {
 
     enum GridType {
@@ -16,10 +18,13 @@ const Search: React.FC<{}> = () => {
         Search
     };
 
+    console.log('search render')
+
     //lazy load to improve performance
-    const CardGrid = React.lazy(() => import('../components/CardGrid'));
-    const PaginationBar = React.lazy(() => import('../components/PaginationBar'));
-    const HeaderSearch = React.lazy(() => import('../components/HeaderSearch'));
+    const CardGrid = React.useMemo(() => React.lazy(() => import('../components/CardGrid')), []);
+    const PaginationBar = React.useMemo(() => React.lazy(() => import('../components/PaginationBar')), []);
+    const HeaderSearch = React.useMemo(() => React.lazy(() => import('../components/HeaderSearch')), []);
+
     //global grid state
     const [ isGridLoading, setIsGridLoading ] = useState<boolean>(true);
     const [ gridType, setGridType ] = useState<GridType>();
