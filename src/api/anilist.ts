@@ -61,7 +61,7 @@ export function recommendationsQuery (animeId: number, page: number) {
     };
 
     return aniListQuery(url, options);
-}
+};
 
 //set with data.data
 export function singleQuery (animeId: number) {
@@ -133,7 +133,7 @@ export function singleQuery (animeId: number) {
     };
 
     return aniListQuery(url, options);
-}
+};
 
 //set with data.data.Page
 export function genreListQuery (page: number, perPage: number, genres: Genres[], sort: SortFilters[], isAdult: boolean) {
@@ -188,7 +188,7 @@ export function genreListQuery (page: number, perPage: number, genres: Genres[],
     };
 
     return aniListQuery(url, options);
-}
+};
 
 export function searchQuery (page: number, perPage: number, search: string, isAdult: boolean) {
     const searchQuery = `query${isAdult ? `($page: Int, $perPage: Int, $search: String)` : `($page: Int, $perPage: Int, $search: String, $isAdult: Boolean)`} {
@@ -241,7 +241,7 @@ export function searchQuery (page: number, perPage: number, search: string, isAd
     };
 
     return aniListQuery(url, options);
-}
+};
 
 export function topQuery (page: number, perPage: number, isAdult: boolean) {
     const topListQuery = `query${isAdult ? `($page: Int, $perPage: Int)` :`($page: Int, $perPage: Int, $isAdult: Boolean)`} {
@@ -293,7 +293,7 @@ export function topQuery (page: number, perPage: number, isAdult: boolean) {
     };
 
     return aniListQuery(url, options);
-}
+};
 
 async function aniListQuery(url: string, options: object) {
     
@@ -303,7 +303,7 @@ async function aniListQuery(url: string, options: object) {
         .catch(handleError);
 
     return anime;
-}
+};
 
 function handleResponse(res: any) {
     return res.json().then((resJSON: any) => {
@@ -317,4 +317,4 @@ function handleData(data: any) {
 
 function handleError(err: any) {
     console.log(err);
-}
+};

@@ -107,3 +107,9 @@ export enum SortFilters {
     POPULARIY = "POPULARITY",
     POPULARITY_DESC = "POPULARITY_DESC"
 }
+
+export enum GridType {
+    Top,
+    Genre,
+    Search
+}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { Genres, SortFilters, AnimeList } from '../application/customTypes';
+import { Genres, SortFilters, GridType, AnimeList } from '../application/customTypes';
 import { genreListQuery, searchQuery, topQuery } from '../api/anilist'
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
@@ -11,12 +11,6 @@ import styles from './search.module.scss';
 ///// Add placeholder for suspense fallbacks that take up the same space as the components
 
 const Search: React.FC<{}> = () => {
-
-    enum GridType {
-        Top,
-        Genre,
-        Search
-    };
 
     //lazy load to improve performance
     const CardGrid = React.useMemo(() => React.lazy(() => import('../components/CardGrid')), []);
