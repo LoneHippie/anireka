@@ -18,8 +18,6 @@ const Search: React.FC<{}> = () => {
         Search
     };
 
-    console.log('search render')
-
     //lazy load to improve performance
     const CardGrid = React.useMemo(() => React.lazy(() => import('../components/CardGrid')), []);
     const PaginationBar = React.useMemo(() => React.lazy(() => import('../components/PaginationBar')), []);
@@ -266,7 +264,9 @@ const Search: React.FC<{}> = () => {
 
         return clientHasConnection ? (
             <CardGrid animeList={animeList} />
-        ) : <CardGridOffline />
+        ) : (
+            <CardGridOffline />
+        )
     };
 
     return (

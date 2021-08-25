@@ -1,6 +1,6 @@
 {
   "short_name": "AniReka",
-  "name": "AniReka anime search PWA",
+  "name": "AniReka PWA",
   "icons": [
     {
       "src": "logo.png",
@@ -12,5 +12,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#FF7383",
-  "background_color": "#ffffff"
+  "background_color": "#00BDD7"
 }

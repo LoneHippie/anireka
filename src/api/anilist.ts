@@ -137,65 +137,34 @@ export function singleQuery (animeId: number) {
 
 //set with data.data.Page
 export function genreListQuery (page: number, perPage: number, genres: Genres[], sort: SortFilters[], isAdult: boolean) {
-    const listQuery = isAdult ? (
-        `query($page: Int, $perPage: Int, $genres: [String], $sort: [MediaSort]) {
-            Page(page: $page, perPage: $perPage) {
-                pageInfo {
-                    total,
-                    currentPage,
-                    lastPage,
-                    hasNextPage,
-                    perPage
-                }
-                media(type: ANIME, genre_in: $genres, sort: $sort) {
-                    id,
-                    title {
-                        english,
-                        native,
-                        romaji
-                    },
-                    episodes,
-                    averageScore,
-                    popularity,
-                    coverImage {
-                        extraLarge,
-                        large,
-                        medium,
-                        color
-                    }
+    const listQuery = `query${isAdult ? `($page: Int, $perPage: Int, $genres: [String], $sort: [MediaSort])` : `($page: Int, $perPage: Int, $genres: [String], $sort: [MediaSort], $isAdult: Boolean)`} {
+        Page(page: $page, perPage: $perPage) {
+            pageInfo {
+                total,
+                currentPage,
+                lastPage,
+                hasNextPage,
+                perPage
+            }
+            media${isAdult ? `(type: ANIME, genre_in: $genres, sort: $sort)` : `(type: ANIME, genre_in: $genres, sort: $sort, isAdult: $isAdult)`} {
+                id,
+                title {
+                    english,
+                    native,
+                    romaji
+                },
+                episodes,
+                averageScore,
+                popularity,
+                coverImage {
+                    extraLarge,
+                    large,
+                    medium,
+                    color
                 }
             }
-        }`
-    ) : (
-        `query($page: Int, $perPage: Int, $genres: [String], $sort: [MediaSort], $isAdult: Boolean) {
-            Page(page: $page, perPage: $perPage) {
-                pageInfo {
-                    total,
-                    currentPage,
-                    lastPage,
-                    hasNextPage,
-                    perPage
-                }
-                media(type: ANIME, genre_in: $genres, sort: $sort, isAdult: $isAdult) {
-                    id,
-                    title {
-                        english,
-                        native,
-                        romaji
-                    },
-                    episodes,
-                    averageScore,
-                    popularity,
-                    coverImage {
-                        extraLarge,
-                        large,
-                        medium,
-                        color
-                    }
-                }
-            }
-        }`
-    );
+        }
+    }`;
 
     const variables = {
         page: page,
@@ -222,65 +191,34 @@ export function genreListQuery (page: number, perPage: number, genres: Genres[],
 }
 
 export function searchQuery (page: number, perPage: number, search: string, isAdult: boolean) {
-    const searchQuery = isAdult ? (
-        `query($page: Int, $perPage: Int, $search: String) {
-            Page(page: $page, perPage: $perPage) {
-                pageInfo {
-                    total,
-                    currentPage,
-                    lastPage,
-                    hasNextPage,
-                    perPage
-                }
-                media(type: ANIME, search: $search, sort: [SCORE_DESC, SEARCH_MATCH]) {
-                    id,
-                    title {
-                        english,
-                        native,
-                        romaji
-                    },
-                    episodes,
-                    averageScore,
-                    popularity,
-                    coverImage {
-                        extraLarge,
-                        large,
-                        medium,
-                        color
-                    }
+    const searchQuery = `query${isAdult ? `($page: Int, $perPage: Int, $search: String)` : `($page: Int, $perPage: Int, $search: String, $isAdult: Boolean)`} {
+        Page(page: $page, perPage: $perPage) {
+            pageInfo {
+                total,
+                currentPage,
+                lastPage,
+                hasNextPage,
+                perPage
+            }
+            media${isAdult ? `(type: ANIME, search: $search, sort: [SCORE_DESC, SEARCH_MATCH])` : `(type: ANIME, search: $search, sort: [SCORE_DESC, SEARCH_MATCH], isAdult: $isAdult)`} {
+                id,
+                title {
+                    english,
+                    native,
+                    romaji
+                },
+                episodes,
+                averageScore,
+                popularity,
+                coverImage {
+                    extraLarge,
+                    large,
+                    medium,
+                    color
                 }
             }
-        }`
-    ) : (
-        `query($page: Int, $perPage: Int, $search: String, $isAdult: Boolean) {
-            Page(page: $page, perPage: $perPage) {
-                pageInfo {
-                    total,
-                    currentPage,
-                    lastPage,
-                    hasNextPage,
-                    perPage
-                }
-                media(type: ANIME, search: $search, sort: [SCORE_DESC, SEARCH_MATCH], isAdult: $isAdult) {
-                    id,
-                    title {
-                        english,
-                        native,
-                        romaji
-                    },
-                    episodes,
-                    averageScore,
-                    popularity,
-                    coverImage {
-                        extraLarge,
-                        large,
-                        medium,
-                        color
-                    }
-                }
-            }
-        }`
-    );
+        }
+    }`;
 
     const variables = {
         page: page,
@@ -306,65 +244,34 @@ export function searchQuery (page: number, perPage: number, search: string, isAd
 }
 
 export function topQuery (page: number, perPage: number, isAdult: boolean) {
-    const topListQuery = isAdult ? (
-        `query($page: Int, $perPage: Int) {
-            Page(page: $page, perPage: $perPage) {
-                pageInfo {
-                    total,
-                    currentPage,
-                    lastPage,
-                    hasNextPage,
-                    perPage
-                }
-                media(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC]) {
-                    id,
-                    title {
-                        english,
-                        native,
-                        romaji
-                    },
-                    episodes,
-                    averageScore,
-                    popularity,
-                    coverImage {
-                        extraLarge,
-                        large,
-                        medium,
-                        color
-                    }
+    const topListQuery = `query${isAdult ? `($page: Int, $perPage: Int)` :`($page: Int, $perPage: Int, $isAdult: Boolean)`} {
+        Page(page: $page, perPage: $perPage) {
+            pageInfo {
+                total,
+                currentPage,
+                lastPage,
+                hasNextPage,
+                perPage
+            }
+            media${isAdult ? `(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC])` : `(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC], isAdult: $isAdult)`} {
+                id,
+                title {
+                    english,
+                    native,
+                    romaji
+                },
+                episodes,
+                averageScore,
+                popularity,
+                coverImage {
+                    extraLarge,
+                    large,
+                    medium,
+                    color
                 }
             }
-        }`
-    ) : (
-        `query($page: Int, $perPage: Int, $isAdult: Boolean) {
-            Page(page: $page, perPage: $perPage) {
-                pageInfo {
-                    total,
-                    currentPage,
-                    lastPage,
-                    hasNextPage,
-                    perPage
-                }
-                media(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC], isAdult: $isAdult) {
-                    id,
-                    title {
-                        english,
-                        native,
-                        romaji
-                    },
-                    episodes,
-                    averageScore,
-                    popularity,
-                    coverImage {
-                        extraLarge,
-                        large,
-                        medium,
-                        color
-                    }
-                }
-            }
-        }`
-    );
+        }
+    }`;
 
     const variables = {
         page: page,
