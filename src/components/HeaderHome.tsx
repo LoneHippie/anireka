@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Logo from '../images/anireka.svg';
-import Clip from '../images/clip-slash.svg';
+import Clip from '../images/clip-slash-blue.svg';
 
-import styles from './HeaderSlash.module.scss';
+import styles from './HeaderHome.module.scss';
 
-const HeaderSlash: React.FC = () => {
+const HeaderHome: React.FC = () => {
 
     return (
         <header className={styles.header}>
@@ -45,4 +45,4 @@ const HeaderSlash: React.FC = () => {
     )
 };
 
-export default HeaderSlash;
+export default HeaderHome;
