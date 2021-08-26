@@ -96,7 +96,13 @@
 
 .bottom_border {
     position: absolute;
-    bottom: -0.4%;
+    bottom: -0.575%;
+    @include respond(tablet) {
+        bottom: -0.7%;
+    }
+    @include respond(laptop) {
+        bottom: -0.8%;
+    }
     left: 0;
     width: 100%;
 
