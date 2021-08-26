@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
 import Navbar from '../components/Navbar';
 import HeaderHome from '../components/HeaderHome';
 import AboutSectionHome from '../components/AboutSectionHome';
-import FeaturedSectionHome from '../components/FeaturedSectionHome';
 
 // import styles from './home.module.scss';
 
 const Home: React.FC<{}> = () => {
+
+    const FeaturedSectionHome = React.useMemo(() => React.lazy(() => import('../components/FeaturedSectionHome')), []);
 
     return (
         <main>
@@ -18,7 +19,9 @@ const Home: React.FC<{}> = () => {
 
             <AboutSectionHome />
 
-            <FeaturedSectionHome />
+            <Suspense fallback={<section></section>}>
+                <FeaturedSectionHome />
+            </Suspense>
 
         </main>
     )

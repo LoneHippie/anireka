@@ -37,7 +37,7 @@ const AboutSectionHome: React.FC<{}> = () => {
                 <div className={styles.card_3}>
                     <img 
                         src={Example3}
-                        alt="exmaple of card for the anime Soul Eater"
+                        alt="example of card for the anime Soul Eater"
                         loading="lazy"
                     />
                 </div>

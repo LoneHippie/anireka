@@ -266,7 +266,7 @@ const Search: React.FC<{}> = () => {
     return (
         <main>
 
-            <Suspense fallback={<div></div>}>
+            <Suspense fallback={<div style={{background: '#FF7383', height: '8rem'}}></div>}>
                 <HeaderSearch 
                     gridSearch={gridSearch}
                     handleChangeSearch={changeHandlers.handleChangeSearch}
@@ -285,7 +285,7 @@ const Search: React.FC<{}> = () => {
                 </Suspense>
             </section>
 
-            <Suspense fallback={<div></div>}>
+            <Suspense fallback={<div style={{background: '#FF7383', height: '4rem'}}></div>}>
                 <PaginationBar 
                     pageInfo={animeList?.pageInfo}
                     handlePaginate={searchHandlers.handlePaginate}

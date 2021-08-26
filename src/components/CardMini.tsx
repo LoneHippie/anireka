@@ -97,7 +97,7 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                         src={anime.coverImage.large || anime.coverImage.medium}
                         alt=""
                         aria-hidden="true"
-                        loading="eager"
+                        loading="lazy"
                     />
                 </div>
 
