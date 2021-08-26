@@ -83,7 +83,7 @@ const FeaturedSectionHome: React.FC<{}> = () => {
     };
 
     return (
-        <section className={styles.featured}>
+        <section className={styles.featured} id="featured">
             
             <h2>Featured Anime</h2>
 

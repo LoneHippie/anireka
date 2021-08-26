@@ -1,4 +1,5 @@
 @import '../styles/variables';
+@import '../styles/mixins';
 @import '../styles/mediaqueries';
 
 .featured {
@@ -59,23 +60,26 @@
     justify-content: space-around;
 
     min-width: 100vw;
+    padding-top: 1rem;
     padding-bottom: 2rem;
 
     scroll-snap-align: start;
 
     & > div {
-        box-shadow: none !important;
         height: 23.5rem;
         width: 10.5rem;
-        margin-bottom: 1rem;
         @include respond(largePhone) {
             height: 25rem;
             width: 13rem;
-            box-shadow: -2px 2px 5px 2px rgba($black, 0.75) !important;
         }
         @include respond(landscapePhone) {
             height: 28rem;
             width: 16rem;
+        }
+
+        &:hover,
+        &:focus {
+            @include focusState($nia-blue-light);
         }
     }
 }

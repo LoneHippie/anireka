@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Logo from '../images/anireka.svg';
 import Clip from '../images/clip-slash-blue.svg';
@@ -14,8 +15,8 @@ const HeaderHome: React.FC = () => {
                 <h2>Search for hidden anime gems, <br/>Get fresh recommendations</h2>
 
                 <div className={styles.button_container}>
-                    <button>Browse</button>
-                    <button>Featured</button>
+                    <button><Link to="/search">Browse</Link></button>
+                    <button><a href="#featured">Featured</a></button>
                 </div>
             </div>
 

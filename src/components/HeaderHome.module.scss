@@ -1,9 +1,19 @@
 @import '../styles/variables';
 @import '../styles/mixins';
+@import '../styles/mediaqueries';
 
 .header {
     position: relative;
     height: 90vh;
+    @include respond(largePhone) {
+        height: 75vh;
+    }
+    @include respond(tablet) {
+        height: 70vh;
+    }
+    @include respond(laptop) {
+        height: 90vh;
+    }
     background: $nia-pink;
     background-image: linear-gradient(to top right,
         $nia-pink,
@@ -41,12 +51,26 @@
 
     margin-top: 3rem;
 
+    & > button {
+        cursor: pointer;
+
+        z-index: 50;
+    }
+
     & > :first-child {
         @include btnWhite($nia-pink);
         margin-right: 1rem;
+        & > a {
+            color: $nia-pink;
+            text-decoration: none;
+        }
     }
     & > :last-child {
         @include btnOutline($white);
+        & > a {
+            color: $white;
+            text-decoration: none;
+        }
     }
 }
 
@@ -55,10 +79,17 @@
     top: 50%;
     right: 0%;
     transform: translate(-50%, 0%);
-    //on desktop increase top and add margin-right
 
     font-size: 4.5rem;
     color: $white;
+
+    @include respond(tablet) {
+        font-size: 5rem;
+        right: 5%;
+    }
+    @include respond(laptop) {
+        top: 35%;
+    }
 
     z-index: 500;
 }

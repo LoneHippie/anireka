@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Example1 from '../images/example-card-eva.png';
 import Example2 from '../images/example-card-fma.png';
@@ -42,7 +43,7 @@ const AboutSectionHome: React.FC<{}> = () => {
                 </div>
             </div>
 
-            <p>Search by popularity, name, or browse with multiple genre filters with ease with our SEARCH PAGE. Newer to anime or not sure what you're looking for? Check out the FEATURED SECTION or head to our RECOMMENDATION SURVEY to get curated results.</p>
+            <p>Search by popularity, name, or browse with multiple genre filters with ease with our <Link to="/search">search engine.</Link> Newer to anime or not sure what you're looking for? Scroll to the featured section or head to our recommendation survey to get curated results.</p>
 
             <img 
                 className={styles.bottom_clip}

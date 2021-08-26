@@ -31,6 +31,13 @@
         @include respond(tablet) {
             width: 70%;
         }
+
+        & > a {
+            color: $white;
+            @include stroke($nia-blue-dark, 1.5px);
+
+            cursor: pointer;
+        }
     }
 }
 
@@ -49,13 +56,14 @@
     
     margin-bottom: 2rem;
 
-    z-index: 100;
+    z-index: 50;
 
     @include respond(tablet) {
         position: absolute;
         top: 0;
         right: 0;
         height: 100%;
+        width: 30%;
     }
 
     & > div {
@@ -82,7 +90,10 @@
 
     @include respond(tablet) {
         top: 2%;
-        right: 4%;
+        right: 8%;
+    }
+    @include respond(laptop) {
+        right: 15%;
     }
 
     z-index: -1;
@@ -94,8 +105,11 @@
     right: 50%;
 
     @include respond(tablet) {
-        top: 55%;
-        right: 8%;
+        top: 52%;
+        right: 18%;
+    }
+    @include respond(laptop) {
+        right: 25%;
     }
 
     z-index: -3;
@@ -107,8 +121,11 @@
     right: 15%;
 
     @include respond(tablet) {
-        right: 12%;
+        right: 35%;
         z-index: -1;
+    }
+    @include respond(laptop) {
+        right: 42%;
     }
 
     z-index: -2;
