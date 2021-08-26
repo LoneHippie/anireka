@@ -51,8 +51,8 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                 tabIndex={0}
                 ref={ref}
                 style={{
-                    transform: inView ? 'translate(0)' : 'translateY(8rem)',
-                    opacity: inView ? 1 : 0
+                    transform: inView || isRecommendation ? 'translate(0)' : 'translateY(8rem)',
+                    opacity: inView || isRecommendation ? 1 : 0
                 }}
                 onClick={() => {
                     if (!isRecommendation) {

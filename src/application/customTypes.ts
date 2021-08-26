@@ -10,7 +10,7 @@ type CoverImage = {
     extraLarge: string,
     large: string,
     medium: string,
-    color: string
+    color: string | null
 }
 
 // enum MediaFormat {

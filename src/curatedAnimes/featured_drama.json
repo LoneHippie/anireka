@@ -1,0 +1,155 @@
+[
+    {
+        "id": 128547,
+        "title": {
+          "english": "ODDTAXI",
+          "romaji": "Odd Taxi",
+          "native": "オッドタクシー"
+        },
+        "episodes": 13,
+        "averageScore": 86,
+        "popularity": 35962,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx128547-TWRVIu5zRTYx.jpg",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx128547-TWRVIu5zRTYx.jpg",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx128547-TWRVIu5zRTYx.jpg",
+          "color": "#fed650"
+        }
+    },
+    {
+        "id": 9253,
+        "title": {
+          "english": "Steins;Gate",
+          "romaji": "Steins;Gate",
+          "native": "シュタインズ・ゲート"
+        },
+        "episodes": 24,
+        "averageScore": 89,
+        "popularity": 287191,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9253-7pdcVzQSkKxT.jpg",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx9253-7pdcVzQSkKxT.jpg",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx9253-7pdcVzQSkKxT.jpg",
+          "color": "#e4a15d"
+        }
+    },
+    {
+        "id": 6114,
+        "title": {
+          "english": "Rainbow",
+          "romaji": "RAINBOW: Nisha Rokubou no Shichinin",
+          "native": "RAINBOW -二舎六房の七人-"
+        },
+        "episodes": 26,
+        "averageScore": 82,
+        "popularity": 49479,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6114-shZ3lroOFRAo.jpg",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx6114-shZ3lroOFRAo.jpg",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx6114-shZ3lroOFRAo.jpg",
+          "color": "#86501a"
+        }
+    },
+    {
+        "id": 107660,
+        "title": {
+          "english": "BEASTARS",
+          "romaji": "BEASTARS",
+          "native": "BEASTARS"
+        },
+        "episodes": 12,
+        "averageScore": 78,
+        "popularity": 125178,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx107660-nANW2Fco3aDK.png",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx107660-nANW2Fco3aDK.png",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx107660-nANW2Fco3aDK.png",
+          "color": "#f1a150"
+        }
+    },
+    {
+        "id": 245,
+        "title": {
+          "english": "GTO: Great Teacher Onizuka",
+          "romaji": "Great Teacher Onizuka",
+          "native": "グレート・ティーチャー・オニヅカ"
+        },
+        "episodes": 43,
+        "averageScore": 84,
+        "popularity": 75291,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx245-By9unwQf1nPZ.jpg",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx245-By9unwQf1nPZ.jpg",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx245-By9unwQf1nPZ.jpg",
+          "color": "#e4930d"
+        }
+    },
+    {
+        "id": 110349,
+        "title": {
+          "english": "Great Pretender",
+          "romaji": "GREAT PRETENDER",
+          "native": "GREAT PRETENDER"
+        },
+        "episodes": 23,
+        "averageScore": 83,
+        "popularity": 97170,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx110349-59hhZ9CNHVdk.png",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx110349-59hhZ9CNHVdk.png",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx110349-59hhZ9CNHVdk.png",
+          "color": "#e4bb43"
+        }
+    },
+    {
+        "id": 6746,
+        "title": {
+          "english": "Durarara!!",
+          "romaji": "Durarara!!",
+          "native": "デュラララ!!"
+        },
+        "episodes": 24,
+        "averageScore": 79,
+        "popularity": 158847,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6746-Q4EmstN2fy0R.png",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx6746-Q4EmstN2fy0R.png",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx6746-Q4EmstN2fy0R.png",
+          "color": "#f1e4bb"
+        }
+    },
+    {
+        "id": 20607,
+        "title": {
+          "english": "Ping Pong the Animation",
+          "romaji": "Ping Pong THE ANIMATION",
+          "native": "ピンポン THE ANIMATION"
+        },
+        "episodes": 11,
+        "averageScore": 85,
+        "popularity": 61721,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20607-gG1XChXDtzAB.jpg",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx20607-gG1XChXDtzAB.jpg",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx20607-gG1XChXDtzAB.jpg",
+          "color": "#c96b35"
+        }
+    },
+    {
+        "id": 1210,
+        "title": {
+          "english": "Welcome to the N-H-K",
+          "romaji": "NHK ni Youkoso!",
+          "native": "N・H・Kにようこそ！"
+        },
+        "episodes": 24,
+        "averageScore": 82,
+        "popularity": 87914,
+        "coverImage": {
+          "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx1210-spaA00zoDoqr.jpg",
+          "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx1210-spaA00zoDoqr.jpg",
+          "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx1210-spaA00zoDoqr.jpg",
+          "color": "#50c9e4"
+        }
+    }
+]
