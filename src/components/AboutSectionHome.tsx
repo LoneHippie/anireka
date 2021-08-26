@@ -21,6 +21,7 @@ const AboutSectionHome: React.FC<{}> = () => {
                     <img 
                         src={Example1}
                         alt="example of card for the anime Neon Genesis Evangelion"
+                        loading="lazy"
                     />
                 </div>
 
@@ -28,6 +29,7 @@ const AboutSectionHome: React.FC<{}> = () => {
                     <img 
                         src={Example2}
                         alt="example of card for the anime Fullmetal Alchemist: Brotherhood"
+                        loading="lazy"
                     />
                 </div>
 
@@ -35,6 +37,7 @@ const AboutSectionHome: React.FC<{}> = () => {
                     <img 
                         src={Example3}
                         alt="exmaple of card for the anime Soul Eater"
+                        loading="lazy"
                     />
                 </div>
             </div>
