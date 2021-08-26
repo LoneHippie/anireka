@@ -151,5 +151,56 @@
           "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx1210-spaA00zoDoqr.jpg",
           "color": "#50c9e4"
         }
+    },
+    {
+      "id": 100388,
+      "title": {
+        "english": "BANANA FISH",
+        "romaji": "BANANA FISH",
+        "native": "バナナフィッシュ"
+      },
+      "episodes": 24,
+      "averageScore": 86,
+      "popularity": 157413,
+      "coverImage": {
+        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx100388-s5QVETlAZrPa.jpg",
+        "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx100388-s5QVETlAZrPa.jpg",
+        "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx100388-s5QVETlAZrPa.jpg",
+        "color": "#ffd635"
+      }
+    },
+    {
+      "id": 101291,
+      "title": {
+        "english": "Rascal Does Not Dream of Bunny Girl Senpai",
+        "romaji": "Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai",
+        "native": "青春ブタ野郎はバニーガール先輩の夢を見ない"
+      },
+      "episodes": 13,
+      "averageScore": 82,
+      "popularity": 255676,
+      "coverImage": {
+        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx101291-Hjz1ToFL5sCG.png",
+        "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx101291-Hjz1ToFL5sCG.png",
+        "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx101291-Hjz1ToFL5sCG.png",
+        "color": "#0d43fe"
+      }
+    },
+    {
+      "id": 239,
+      "title": {
+        "english": "Gankutsuou: The Count of Monte Cristo",
+        "romaji": "Gankutsuou",
+        "native": "巌窟王"
+      },
+      "episodes": 24,
+      "averageScore": 79,
+      "popularity": 32080,
+      "coverImage": {
+        "extraLarge": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx239-j65nzbXxC3oA.png",
+        "large": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx239-j65nzbXxC3oA.png",
+        "medium": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/small/bx239-j65nzbXxC3oA.png",
+        "color": "#d66b1a"
+      }
     }
 ]

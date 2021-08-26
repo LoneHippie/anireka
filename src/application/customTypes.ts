@@ -1,8 +1,8 @@
 ////////// Shared //////////
 
 type Title = {
-    english: string,
-    native: string,
+    english: string | null,
+    native: string | null,
     romaji?: string
 }
 

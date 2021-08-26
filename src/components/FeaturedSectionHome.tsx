@@ -1,5 +1,6 @@
 import React from 'react';
 import { MediaMini } from '../application/customTypes';
+import useWindowDimensions from '../hooks/useWindowDimensions';
 
 import CardMini from './CardMini';
 
@@ -7,11 +8,15 @@ import featuredAction from '../curatedAnimes/featured_action.json';
 import featuredDrama from '../curatedAnimes/featured_drama.json';
 import featuredPsychological from '../curatedAnimes/featured_psychological.json';
 
+import Wave from '../images/wave.svg';
+
 import styles from './FeaturedSectionHome.module.scss';
 
 const FeaturedSectionHome: React.FC<{}> = () => {
 
-    const featuredRow = (featuredAnimes: Array<MediaMini>, genre: string): JSX.Element => {
+    const { screenWidth } = useWindowDimensions();
+
+    const featuredRowsMobile = (featuredAnimes: Array<MediaMini>, genre: string): JSX.Element => {
         const row1 = (): JSX.Element => {
             let jsx = [];
 
@@ -72,6 +77,98 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                 </div>
             )
         }
+        const row4 = (): JSX.Element => {
+            let jsx = [];
+
+            for (let i = 9; i < 12; i++) {
+                jsx.push(
+                    <CardMini 
+                        key={`${genre}-card-${i}`}
+                        anime={featuredAnimes[i]}
+                        index={i}
+                        isRecommendation={true}
+                    />
+                )
+            }
+
+            return (
+                <div className={styles.card_row}>
+                    {jsx}
+                </div>
+            )
+        }
+
+        return (
+            <>
+                {row1()}
+                {row2()}
+                {row3()}
+                {row4()}
+            </>
+        )
+    };
+
+    const featuredRowsDesktop = (featuredAnimes: Array<MediaMini>, genre: string): JSX.Element => {
+        const row1 = (): JSX.Element => {
+            let jsx = [];
+
+            for (let i = 0; i < 4; i++) {
+                jsx.push(
+                    <CardMini 
+                        key={`${genre}-card-${i}`}
+                        anime={featuredAnimes[i]}
+                        index={i}
+                        isRecommendation={true}
+                    />
+                )
+            }
+
+            return (
+                <div className={styles.card_row}>
+                    {jsx}
+                </div>
+            )
+        }
+        const row2 = (): JSX.Element => {
+            let jsx = [];
+
+            for (let i = 4; i < 8; i++) {
+                jsx.push(
+                    <CardMini 
+                        key={`${genre}-card-${i}`}
+                        anime={featuredAnimes[i]}
+                        index={i}
+                        isRecommendation={true}
+                    />
+                )
+            }
+
+            return (
+                <div className={styles.card_row}>
+                    {jsx}
+                </div>
+            )
+        }
+        const row3 = (): JSX.Element => {
+            let jsx = [];
+
+            for (let i = 8; i < 12; i++) {
+                jsx.push(
+                    <CardMini 
+                        key={`${genre}-card-${i}`}
+                        anime={featuredAnimes[i]}
+                        index={i}
+                        isRecommendation={true}
+                    />
+                )
+            }
+
+            return (
+                <div className={styles.card_row}>
+                    {jsx}
+                </div>
+            )
+        }
 
         return (
             <>
@@ -88,22 +185,47 @@ const FeaturedSectionHome: React.FC<{}> = () => {
             <h2>Featured Anime</h2>
 
             <div className={styles.featured_sliders}>
+
+                <img 
+                    src={Wave}
+                    alt=""
+                    aria-hidden="true"
+                />
+
                 <section>
                     <h3>Action</h3>
                     <div className={styles.slider}>
-                        { featuredRow(featuredAction, 'action') }
+                        {
+                            screenWidth && screenWidth > 768 ? (
+                                featuredRowsDesktop(featuredAction, 'action')
+                            ) : (
+                                featuredRowsMobile(featuredAction, 'action')
+                            )
+                        }
                     </div>
                 </section>
                 <section>
                     <h3>Drama</h3>
                     <div className={styles.slider}>
-                        { featuredRow(featuredDrama, 'drama') }
+                        {
+                            screenWidth && screenWidth > 768 ? (
+                                featuredRowsDesktop(featuredDrama, 'drama')
+                            ) : (
+                                featuredRowsMobile(featuredDrama, 'drama')
+                            )
+                        }
                     </div>
                 </section>
                 <section>
                     <h3>Psychological</h3>
                     <div className={styles.slider}>
-                        { featuredRow(featuredPsychological, 'psychological') }
+                        {
+                            screenWidth && screenWidth > 768 ? (
+                                featuredRowsDesktop(featuredPsychological, 'psychological')
+                            ) : (
+                                featuredRowsMobile(featuredPsychological, 'psychological')
+                            )
+                        }
                     </div>
                 </section>
             </div>
