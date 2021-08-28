@@ -196,9 +196,6 @@
 .genre_search_button {
     @include btnPrimary($nia-blue-light);
     border: 2px solid $white;
-    // margin-top: 1.5rem;
-    // margin-bottom: 1.5rem;
-    // margin-left: 1.5rem;
 
     transition: all 250ms;
 

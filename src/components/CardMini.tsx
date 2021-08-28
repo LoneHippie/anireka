@@ -1,9 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, Suspense } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { MediaMini } from '../application/customTypes';
 import useOnScreen from '../hooks/useOnScreen';
-
-import RecommendationsTab from './RecommendationsTab';
 
 import Swoop from '../images/swoop_card.svg';
 import Rating from '../images/rating.svg';
@@ -43,6 +41,8 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
             return title;
         }
     };
+
+    const RecommendationsTab = React.lazy(() => import('./RecommendationsTab'));
 
     return (
         <>
@@ -149,9 +149,11 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
             {
                 showRecommendations ? (
                     <>
-                        <RecommendationsTab 
-                            sourceID={anime.id}
-                        />
+                        <Suspense fallback={<div className={styles.reco_placeholder}></div>}>
+                            <RecommendationsTab 
+                                sourceID={anime.id}
+                            />
+                        </Suspense>
 
                         <div 
                             className={styles.reco_blur}
