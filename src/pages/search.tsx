@@ -8,8 +8,6 @@ import CardGridOffline from '../components/CardGridOffline';
 
 import styles from './search.module.scss';
 
-///// Add placeholder for suspense fallbacks that take up the same space as the components
-
 const Search: React.FC<{}> = () => {
 
     //lazy load to improve performance
@@ -266,7 +264,7 @@ const Search: React.FC<{}> = () => {
     return (
         <main>
 
-            <Suspense fallback={<div style={{background: '#FF7383', height: '8rem'}}></div>}>
+            <Suspense fallback={<div className={styles.header_placeholder}></div>}>
                 <HeaderSearch 
                     gridSearch={gridSearch}
                     handleChangeSearch={changeHandlers.handleChangeSearch}
@@ -280,12 +278,12 @@ const Search: React.FC<{}> = () => {
             </Suspense>
 
             <section className={styles.grid_body}>
-                <Suspense fallback={<div></div>}>
+                <Suspense fallback={<CardGridLoading />}>
                     { gridBodyRender() }
                 </Suspense>
             </section>
 
-            <Suspense fallback={<div style={{background: '#FF7383', height: '4rem'}}></div>}>
+            <Suspense fallback={<div className={styles.pagination_placeholder}></div>}>
                 <PaginationBar 
                     pageInfo={animeList?.pageInfo}
                     handlePaginate={searchHandlers.handlePaginate}
