@@ -18,7 +18,7 @@ const App: React.FC<{}> = () => {
                 <Switch>
                     <Route path="/" exact render={() => <Home />} />
                     <Route path="/search" exact render={() => <Search />} />
-                    <Route path="/search/:id" component={ Entry } />
+                    <Route path="/entry/:id" component={ Entry } />
                     <Route path="/about" exact component={ About } />
                 </Switch>
             </Router>

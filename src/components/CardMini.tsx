@@ -58,7 +58,7 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                     if (!isRecommendation) {
                         setShowCardOptions(true)
                     } else {
-                        history.push(`/search/${anime.id}`)
+                        history.push(`/entry/${anime.id}`)
                     }
                 }}
                 onFocus={() => {
@@ -120,7 +120,7 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                                 <button
                                     id={`btn-info-${index}`}
                                 >
-                                    <Link to={`/search/${anime.id}`}>More Info</Link>
+                                    <Link to={`/entry/${anime.id}`}>More Info</Link>
                                 </button>
 
                                 <button
