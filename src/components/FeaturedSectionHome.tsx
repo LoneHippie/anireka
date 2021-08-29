@@ -27,7 +27,6 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <CardMini 
                         key={`${genre}-card-${i}`}
                         anime={featuredAnimes[i]}
-                        index={i}
                         isRecommendation={true}
                     />
                 )
@@ -47,7 +46,6 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <CardMini 
                         key={`${genre}-card-${i}`}
                         anime={featuredAnimes[i]}
-                        index={i}
                         isRecommendation={true}
                     />
                 )
@@ -67,7 +65,6 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <CardMini 
                         key={`${genre}-card-${i}`}
                         anime={featuredAnimes[i]}
-                        index={i}
                         isRecommendation={true}
                     />
                 )
@@ -87,7 +84,6 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <CardMini 
                         key={`${genre}-card-${i}`}
                         anime={featuredAnimes[i]}
-                        index={i}
                         isRecommendation={true}
                     />
                 )
@@ -119,7 +115,6 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <CardMini 
                         key={`${genre}-card-${i}`}
                         anime={featuredAnimes[i]}
-                        index={i}
                         isRecommendation={true}
                     />
                 )
@@ -139,7 +134,6 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <CardMini 
                         key={`${genre}-card-${i}`}
                         anime={featuredAnimes[i]}
-                        index={i}
                         isRecommendation={true}
                     />
                 )
@@ -159,7 +153,6 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <CardMini 
                         key={`${genre}-card-${i}`}
                         anime={featuredAnimes[i]}
-                        index={i}
                         isRecommendation={true}
                     />
                 )

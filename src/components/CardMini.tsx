@@ -10,11 +10,10 @@ import styles from './CardMini.module.scss';
 
 interface Props {
     anime: MediaMini;
-    index?: number;
     isRecommendation: boolean;
 }
 
-const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
+const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
 
     const history = useHistory();
 
@@ -117,16 +116,13 @@ const CardMini: React.FC<Props> = ({ anime, index, isRecommendation }) => {
                             <div 
                                 className={styles.options_bottom}
                             >
-                                <button
-                                    id={`btn-info-${index}`}
-                                >
+                                <button>
                                     <Link to={`/entry/${anime.id}`}>More Info</Link>
                                 </button>
 
-                                <button
-                                    id={`btn-related-${index}`}
-                                    onClick={() => setShowReccomendations(true)}
-                                >Related</button>
+                                <button onClick={() => setShowReccomendations(true)}>
+                                    Related
+                                </button>
                             </div>
                         ) : (
                             <div className={styles.info_bottom}>

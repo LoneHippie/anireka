@@ -19,7 +19,6 @@ const CardGrid: React.FC<Props> = ({ animeList }) => {
             <CardMini 
                 key={`mini-card-${index}`}
                 anime={el}
-                index={index}
                 isRecommendation={false}
             />
         ))
