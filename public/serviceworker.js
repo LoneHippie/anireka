@@ -1,8 +1,9 @@
-const CACHE_NAME = 'pwa-anireka';
+const CACHE_NAME = 'pwa-anireka-v2';
 const urlsToCache = [
     '/',
     '/about',
-    '/search'
+    '/search',
+    '/entry'
 ];
 
 const self = this;
@@ -42,3 +43,25 @@ self.addEventListener('fetch', (event) => {
             .catch(() => caches.match(event.request))
     )
 });
+
+// self.addEventListener('fetch', (event) => {
+//     event.respondWith(
+//         (async function() {
+//             const cache = await caches.open(CACHE_NAME);
+//             const cachedFiles = await cache.match(event.request);
+
+//             if (cachedFiles) {
+//                 return cachedFiles;
+//             } else {
+//                 try {
+//                     const response = await fetch(event.request);
+//                     await cache.put(event.request, response.clone());
+    
+//                     return response;
+//                 } catch (error) {
+//                     console.log(error);
+//                 }
+//             }
+//         })
+//     )
+// })

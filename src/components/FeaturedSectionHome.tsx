@@ -9,8 +9,6 @@ import Wave from '../images/wave.svg';
 
 import styles from './FeaturedSectionHome.module.scss';
 
-//optimize featuredRowsMobile/Desktop to be a more concise single function
-
 const FeaturedSectionHome: React.FC<{}> = () => {
 
     const { screenWidth } = useWindowDimensions();
