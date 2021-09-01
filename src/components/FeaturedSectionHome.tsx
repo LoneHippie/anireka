@@ -34,162 +34,36 @@ const FeaturedSectionHome: React.FC<{}> = () => {
             .then(data => {
                 setFeaturedPsychological(data.data.Page.media);
             });
-    }, [])
+    }, []);
 
-    const featuredRowsMobile = (featuredAnimes: Array<MediaMini>, genre: string): JSX.Element => {
-        const row1 = (): JSX.Element => {
-            let jsx = [];
+    const featuredRows = (featuredAnimes: Array<MediaMini>, genre: string, width: number): JSX.Element => {
+        let perChunk: number = width > 768 ? 4 : 3;
 
-            for (let i = 0; i < 3; i++) {
-                jsx.push(
-                    <CardMini 
-                        key={`${genre}-card-${i}`}
-                        anime={featuredAnimes[i]}
-                        isRecommendation={true}
-                    />
-                )
+        //reducer to split anime list into chunks based on screen width
+        const chunkedResults = featuredAnimes.reduce((chunkedArr: any, el: MediaMini, index) => {
+            const chunkIndex = Math.floor(index/perChunk);
+
+            if (!chunkedArr[chunkIndex]) {
+                chunkedArr[chunkIndex] = [];
             }
 
-            return (
-                <div className={styles.card_row}>
-                    {jsx}
-                </div>
-            )
-        }
-        const row2 = (): JSX.Element => {
-            let jsx = [];
+            chunkedArr[chunkIndex].push(el);
 
-            for (let i = 3; i < 6; i++) {
-                jsx.push(
+            return chunkedArr;
+        }, []);
+
+        //render each chunk as a row
+        return chunkedResults.map((el: Array<MediaMini>, index: number) => (
+            <div className={styles.card_row} key={`row-${index}-${genre}`}>
+                {el.map((el, index) => (
                     <CardMini 
-                        key={`${genre}-card-${i}`}
-                        anime={featuredAnimes[i]}
+                        key={`${genre}-card-${index}`}
+                        anime={el}
                         isRecommendation={true}
                     />
-                )
-            }
-
-            return (
-                <div className={styles.card_row}>
-                    {jsx}
-                </div>
-            )
-        }
-        const row3 = (): JSX.Element => {
-            let jsx = [];
-
-            for (let i = 6; i < 9; i++) {
-                jsx.push(
-                    <CardMini 
-                        key={`${genre}-card-${i}`}
-                        anime={featuredAnimes[i]}
-                        isRecommendation={true}
-                    />
-                )
-            }
-
-            return (
-                <div className={styles.card_row}>
-                    {jsx}
-                </div>
-            )
-        }
-        const row4 = (): JSX.Element => {
-            let jsx = [];
-
-            for (let i = 9; i < 12; i++) {
-                jsx.push(
-                    <CardMini 
-                        key={`${genre}-card-${i}`}
-                        anime={featuredAnimes[i]}
-                        isRecommendation={true}
-                    />
-                )
-            }
-
-            return (
-                <div className={styles.card_row}>
-                    {jsx}
-                </div>
-            )
-        }
-
-        return (
-            <>
-                {row1()}
-                {row2()}
-                {row3()}
-                {row4()}
-            </>
-        )
-    };
-
-    const featuredRowsDesktop = (featuredAnimes: Array<MediaMini>, genre: string): JSX.Element => {
-        const row1 = (): JSX.Element => {
-            let jsx = [];
-
-            for (let i = 0; i < 4; i++) {
-                jsx.push(
-                    <CardMini 
-                        key={`${genre}-card-${i}`}
-                        anime={featuredAnimes[i]}
-                        isRecommendation={true}
-                    />
-                )
-            }
-
-            return (
-                <div className={styles.card_row}>
-                    {jsx}
-                </div>
-            )
-        }
-        const row2 = (): JSX.Element => {
-            let jsx = [];
-
-            for (let i = 4; i < 8; i++) {
-                jsx.push(
-                    <CardMini 
-                        key={`${genre}-card-${i}`}
-                        anime={featuredAnimes[i]}
-                        isRecommendation={true}
-                    />
-                )
-            }
-
-            return (
-                <div className={styles.card_row}>
-                    {jsx}
-                </div>
-            )
-        }
-        const row3 = (): JSX.Element => {
-            let jsx = [];
-
-            for (let i = 8; i < 12; i++) {
-                jsx.push(
-                    <CardMini 
-                        key={`${genre}-card-${i}`}
-                        anime={featuredAnimes[i]}
-                        isRecommendation={true}
-                    />
-                )
-            }
-
-            return (
-                <div className={styles.card_row}>
-                    {jsx}
-                </div>
-            )
-        }
-
-        return (
-            <>
-                {row1()}
-                {row2()}
-                {row3()}
-            </>
-        )
+                ))}
+            </div>
+        ))
     };
 
     return (
@@ -209,12 +83,8 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <h3>Action</h3>
                     <div className={styles.slider}>
                         {
-                            featuredAction ? (
-                                screenWidth && screenWidth > 768 ? (
-                                    featuredRowsDesktop(featuredAction, 'action')
-                                ) : (
-                                    featuredRowsMobile(featuredAction, 'action')
-                                )
+                            featuredAction && screenWidth ? (
+                                featuredRows(featuredAction, 'action', screenWidth)
                             ) : null
                         }
                     </div>
@@ -223,12 +93,8 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <h3>Drama</h3>
                     <div className={styles.slider}>
                         {
-                            featuredDrama ? (
-                                screenWidth && screenWidth > 768 ? (
-                                    featuredRowsDesktop(featuredDrama, 'drama')
-                                ) : (
-                                    featuredRowsMobile(featuredDrama, 'drama')
-                                )
+                            featuredDrama && screenWidth ? (
+                                featuredRows(featuredDrama, 'drama', screenWidth)
                             ) : null
                         }
                     </div>
@@ -237,12 +103,8 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <h3>Psychological</h3>
                     <div className={styles.slider}>
                         {
-                            featuredPsychological ? (
-                                screenWidth && screenWidth > 768 ? (
-                                    featuredRowsDesktop(featuredPsychological, 'psychological')
-                                ) : (
-                                    featuredRowsMobile(featuredPsychological, 'psychological')
-                                )
+                            featuredPsychological && screenWidth ? (
+                                featuredRows(featuredPsychological, 'psychological', screenWidth)
                             ) : null
                         }
                     </div>
