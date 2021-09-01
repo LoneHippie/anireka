@@ -24,6 +24,11 @@ interface Props {
     }
 }
 
+enum RelatedLink {
+    SEQUEL = 'SEQUEL',
+    PREQUEL = 'PREQUEL'
+}
+
 const Entry: React.FC<Props> = ({ match }) => {
 
     const [ anime, setAnime ] = useState<null | Anime>(null);
@@ -83,38 +88,26 @@ const Entry: React.FC<Props> = ({ match }) => {
         }
     };
 
-    const prequelLink = (): JSX.Element => {
-        const buttonDisabled = <button disabled={true}>&larr; Prequel</button>;
-
-        if (!anime) return buttonDisabled;
-
-        const prequelExists = anime.relations.edges.some((el: any) => el.relationType === 'PREQUEL');
-
-        if (!prequelExists) return buttonDisabled;
-
-        const prequel = anime.relations.edges.filter((el: any) => el.relationType === 'PREQUEL');
-
-        return (
-            <button>
-                <Link to={`/entry/${prequel[0].node.id}`}>&larr; Prequel</Link>
+    const relatedLinkButton = (linkType: RelatedLink): JSX.Element => {
+        const buttonDisabled = (
+            <button disabled={true}>
+                {linkType === RelatedLink.PREQUEL ? `\u2190 Prequel` : `Sequel \u2192`}
             </button>
-        )
-    };
-
-    const sequelLink = (): JSX.Element => {
-        const buttonDisabled = <button disabled={true}>Sequel &rarr;</button>;
+        );
 
         if (!anime) return buttonDisabled;
 
-        const sequelExists = anime.relations.edges.some((el: any) => el.relationType === 'SEQUEL');
+        const linkExists = anime.relations.edges.some((el: any) => el.relationType === linkType);
 
-        if (!sequelExists) return buttonDisabled;
+        if (!linkExists) return buttonDisabled;
 
-        const sequel = anime.relations.edges.filter((el: any) => el.relationType === 'SEQUEL');
+        const link = anime.relations.edges.filter((el: any) => el.relationType === linkType);
 
         return (
             <button>
-                <Link to={`/entry/${sequel[0].node.id}`}>Sequel &rarr;</Link>
+                <Link to={`/entry/${link[0].node.id}`}>
+                    {linkType === RelatedLink.PREQUEL ? `\u2190 Prequel` : `Sequel \u2192`}
+                </Link>
             </button>
         )
     };
@@ -224,8 +217,8 @@ const Entry: React.FC<Props> = ({ match }) => {
                         <div className={styles.info_bottom_border}></div>
 
                         <div className={styles.related_links}>
-                            {prequelLink()}
-                            {sequelLink()}
+                            {relatedLinkButton(RelatedLink.PREQUEL)}
+                            {relatedLinkButton(RelatedLink.SEQUEL)}
                         </div>
 
                         <img 
