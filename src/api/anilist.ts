@@ -1,5 +1,62 @@
 import { Genres, SortFilters } from "../application/customTypes";
 
+const url = 'https://graphql.anilist.co';
+const mediaMini = `
+    id,
+    title {
+        english,
+        native,
+        romaji
+    },
+    episodes,
+    averageScore,
+    popularity,
+    format,
+    status,
+    coverImage {
+        extraLarge,
+        large,
+        medium,
+        color
+    }
+`;
+
+export function specificListQuery (animeIdList: number[]) {
+    const listQuery = `
+    query($id_in: [Int]) {
+        Page(page: 1, perPage: 20) {
+            pageInfo {
+                total,
+                currentPage,
+                lastPage,
+                hasNextPage,
+                perPage
+            }   
+            media(type: ANIME, id_in: $id_in) {
+                ${mediaMini}
+            }
+        }
+    }`;
+
+    const variables = {
+        id_in: animeIdList
+    };
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+            query: listQuery,
+            variables: variables
+        })
+    };
+
+    return aniListQuery(url, options);
+};
+
 export function recommendationsQuery (animeId: number, page: number) {
     const recommendationsListQuery = `
     query ($id: Int, $page: Int) {
@@ -20,21 +77,7 @@ export function recommendationsQuery (animeId: number, page: number) {
                 edges {
                     node {
                         mediaRecommendation {
-                            id,
-                            title {
-                                english,
-                                native,
-                                romaji
-                            },
-                            episodes,
-                            averageScore,
-                            popularity,
-                            coverImage {
-                                extraLarge,
-                                large,
-                                medium,
-                                color
-                            }
+                            ${mediaMini}
                         }
                     }
                 }
@@ -47,7 +90,6 @@ export function recommendationsQuery (animeId: number, page: number) {
         page: page
     };
 
-    const url = 'https://graphql.anilist.co';
     const options = {
         method: 'POST',
         headers: {
@@ -84,6 +126,10 @@ export function singleQuery (animeId: number) {
             type,
             format,
             genres,
+            status,
+            nextAiringEpisode {
+                episode
+            },
             description(asHtml: false),
             trailer {
                 id,
@@ -119,7 +165,6 @@ export function singleQuery (animeId: number) {
         id: animeId
     };
 
-    const url = 'https://graphql.anilist.co';
     const options = {
         method: 'POST',
         headers: {
@@ -147,21 +192,7 @@ export function genreListQuery (page: number, perPage: number, genres: Genres[],
                 perPage
             }
             media${isAdult ? `(type: ANIME, genre_in: $genres, sort: $sort)` : `(type: ANIME, genre_in: $genres, sort: $sort, isAdult: $isAdult)`} {
-                id,
-                title {
-                    english,
-                    native,
-                    romaji
-                },
-                episodes,
-                averageScore,
-                popularity,
-                coverImage {
-                    extraLarge,
-                    large,
-                    medium,
-                    color
-                }
+                ${mediaMini}
             }
         }
     }`;
@@ -174,7 +205,6 @@ export function genreListQuery (page: number, perPage: number, genres: Genres[],
         isAdult: isAdult
     };
 
-    const url = 'https://graphql.anilist.co';
     const options = {
         method: 'POST',
         headers: {
@@ -201,21 +231,7 @@ export function searchQuery (page: number, perPage: number, search: string, isAd
                 perPage
             }
             media${isAdult ? `(type: ANIME, search: $search, sort: [SCORE_DESC, SEARCH_MATCH])` : `(type: ANIME, search: $search, sort: [SCORE_DESC, SEARCH_MATCH], isAdult: $isAdult)`} {
-                id,
-                title {
-                    english,
-                    native,
-                    romaji
-                },
-                episodes,
-                averageScore,
-                popularity,
-                coverImage {
-                    extraLarge,
-                    large,
-                    medium,
-                    color
-                }
+                ${mediaMini}
             }
         }
     }`;
@@ -227,7 +243,6 @@ export function searchQuery (page: number, perPage: number, search: string, isAd
         isAdult: isAdult
     };
 
-    const url = 'https://graphql.anilist.co';
     const options = {
         method: 'POST',
         headers: {
@@ -254,21 +269,7 @@ export function topQuery (page: number, perPage: number, isAdult: boolean) {
                 perPage
             }
             media${isAdult ? `(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC])` : `(type: ANIME, sort: [SCORE_DESC, POPULARITY_DESC], isAdult: $isAdult)`} {
-                id,
-                title {
-                    english,
-                    native,
-                    romaji
-                },
-                episodes,
-                averageScore,
-                popularity,
-                coverImage {
-                    extraLarge,
-                    large,
-                    medium,
-                    color
-                }
+                ${mediaMini}
             }
         }
     }`;
@@ -279,7 +280,6 @@ export function topQuery (page: number, perPage: number, isAdult: boolean) {
         isAdult: isAdult
     };
 
-    const url = 'https://graphql.anilist.co';
     const options = {
         method: 'POST',
         headers: {

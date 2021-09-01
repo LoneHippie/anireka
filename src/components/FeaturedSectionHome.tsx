@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { specificListQuery } from '../api/anilist';
 import { MediaMini } from '../application/customTypes';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
 import CardMini from './CardMini';
-
-import featuredAction from '../curatedAnimes/featured_action.json';
-import featuredDrama from '../curatedAnimes/featured_drama.json';
-import featuredPsychological from '../curatedAnimes/featured_psychological.json';
 
 import Wave from '../images/wave.svg';
 
@@ -17,6 +14,27 @@ import styles from './FeaturedSectionHome.module.scss';
 const FeaturedSectionHome: React.FC<{}> = () => {
 
     const { screenWidth } = useWindowDimensions();
+
+    const [ featuredAction, setFeaturedAction ] = useState<Array<MediaMini>>();
+    const [ featuredDrama, setFeaturedDrama ] = useState<Array<MediaMini>>();
+    const [ featuredPsychological, setFeaturedPsychological ] = useState<Array<MediaMini>>();
+
+    useEffect(() => {
+        specificListQuery([113415, 21507, 10087, 128546, 205, 777, 889, 11061, 100298, 16498, 2001, 1292])
+            .then(data => {
+                setFeaturedAction(data.data.Page.media);
+            });
+
+        specificListQuery([128547, 9253, 6114, 107660, 245, 110349, 6746, 20607, 1210, 100388, 101291, 239])
+            .then(data => {
+                setFeaturedDrama(data.data.Page.media);
+            });
+
+        specificListQuery([13601, 13125, 19, 9756, 30, 790, 97986, 98707, 20931, 3002, 43, 323])
+            .then(data => {
+                setFeaturedPsychological(data.data.Page.media);
+            });
+    }, [])
 
     const featuredRowsMobile = (featuredAnimes: Array<MediaMini>, genre: string): JSX.Element => {
         const row1 = (): JSX.Element => {
@@ -191,11 +209,13 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <h3>Action</h3>
                     <div className={styles.slider}>
                         {
-                            screenWidth && screenWidth > 768 ? (
-                                featuredRowsDesktop(featuredAction, 'action')
-                            ) : (
-                                featuredRowsMobile(featuredAction, 'action')
-                            )
+                            featuredAction ? (
+                                screenWidth && screenWidth > 768 ? (
+                                    featuredRowsDesktop(featuredAction, 'action')
+                                ) : (
+                                    featuredRowsMobile(featuredAction, 'action')
+                                )
+                            ) : null
                         }
                     </div>
                 </section>
@@ -203,11 +223,13 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <h3>Drama</h3>
                     <div className={styles.slider}>
                         {
-                            screenWidth && screenWidth > 768 ? (
-                                featuredRowsDesktop(featuredDrama, 'drama')
-                            ) : (
-                                featuredRowsMobile(featuredDrama, 'drama')
-                            )
+                            featuredDrama ? (
+                                screenWidth && screenWidth > 768 ? (
+                                    featuredRowsDesktop(featuredDrama, 'drama')
+                                ) : (
+                                    featuredRowsMobile(featuredDrama, 'drama')
+                                )
+                            ) : null
                         }
                     </div>
                 </section>
@@ -215,11 +237,13 @@ const FeaturedSectionHome: React.FC<{}> = () => {
                     <h3>Psychological</h3>
                     <div className={styles.slider}>
                         {
-                            screenWidth && screenWidth > 768 ? (
-                                featuredRowsDesktop(featuredPsychological, 'psychological')
-                            ) : (
-                                featuredRowsMobile(featuredPsychological, 'psychological')
-                            )
+                            featuredPsychological ? (
+                                screenWidth && screenWidth > 768 ? (
+                                    featuredRowsDesktop(featuredPsychological, 'psychological')
+                                ) : (
+                                    featuredRowsMobile(featuredPsychological, 'psychological')
+                                )
+                            ) : null
                         }
                     </div>
                 </section>

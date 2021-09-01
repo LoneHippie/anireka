@@ -25,6 +25,19 @@ const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
     const [ showCardoptions, setShowCardOptions ] = useState<boolean>(false);
     const [ showRecommendations, setShowReccomendations ] = useState<boolean>(false);
 
+    const episodeStatus = (): string => {
+        if (anime.format === 'MOVIE') return 'Movie';
+        if (anime.format === 'MUSIC') return 'Music Video';
+
+        if (anime.status === 'FINISHED') {
+            return `Ep: ${anime.episodes}`;
+        } else if (anime.status === 'NOT_YET_RELEASED') {
+            return 'Unreleased';
+        } else {
+            return 'Ongoing';
+        }
+    };
+
     const shortenedTitle = (title: string): string => {
         let formattedTitle: string | string[];
         let wordLength: number = 9;
@@ -75,7 +88,7 @@ const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
                 <div className={styles.section_top}>
 
                     <div className={styles.info_top}>
-                        <div>Ep: {anime.episodes || 'Ongoing'}</div>
+                        <div>{episodeStatus()}</div>
                         <div className={styles.info_score}>
                             <img src={Rating} alt="" aria-hidden="true" />
                             <div>{anime.averageScore || 'N/A'}</div>

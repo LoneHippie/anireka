@@ -69,6 +69,20 @@ const Entry: React.FC<Props> = ({ match }) => {
         }
     };
 
+    const durationInfo = (): string => {
+        if (!anime) return 'Unknown';
+
+        if (anime.format === 'MUSIC' || anime.format === 'MOVIE') {
+            return `Length: ${anime.duration} minutes`;
+        }
+
+        if (anime.status === 'RELEASING') {
+            return `Latest Episode: ${anime.nextAiringEpisode?.episode}`;
+        } else {
+            return anime.episodes ? `Episodes: ${anime.episodes}` : `Episodes: -`;
+        }
+    };
+
     const prequelLink = (): JSX.Element => {
         const buttonDisabled = <button disabled={true}>&larr; Prequel</button>;
 
@@ -82,7 +96,7 @@ const Entry: React.FC<Props> = ({ match }) => {
 
         return (
             <button>
-                <Link to={`/search/${prequel[0].node.id}`}>&larr; Prequel</Link>
+                <Link to={`/entry/${prequel[0].node.id}`}>&larr; Prequel</Link>
             </button>
         )
     };
@@ -100,7 +114,7 @@ const Entry: React.FC<Props> = ({ match }) => {
 
         return (
             <button>
-                <Link to={`/search/${sequel[0].node.id}`}>Sequel &rarr;</Link>
+                <Link to={`/entry/${sequel[0].node.id}`}>Sequel &rarr;</Link>
             </button>
         )
     };
@@ -170,7 +184,7 @@ const Entry: React.FC<Props> = ({ match }) => {
                                     <div className={styles.info_card_stats}>
                                         <div>Score: {anime.averageScore || 'N/A'}</div>
                                         <div>Format: {animeFormat()}</div>
-                                        <div>Episodes: {anime.episodes || '-'}</div>
+                                        <div>{durationInfo()}</div>
                                         <div>Released: {anime.startDate.year}</div>
                                         <div>By: {animeStudio()}</div>
                                     </div>

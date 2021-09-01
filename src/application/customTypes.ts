@@ -39,6 +39,8 @@ export type MediaMini = {
     episodes: number,
     averageScore: number,
     popularity: number,
+    format: string,
+    status: string,
     coverImage: CoverImage
 }
 
@@ -60,6 +62,10 @@ export type Anime = {
     type: string,
     format: string,
     genres: string[],
+    status: string,
+    nextAiringEpisode: null | {
+        episode: number
+    },
     description: string,
     trailer: null | {
         id: string,
