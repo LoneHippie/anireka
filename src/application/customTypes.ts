@@ -116,6 +116,8 @@ export enum SortFilters {
 
 export enum GridType {
     Top,
+    Popular,
+    Airing,
     Genre,
     Search
 }

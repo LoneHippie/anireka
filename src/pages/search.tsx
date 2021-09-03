@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { Genres, SortFilters, GridType, AnimeList } from '../application/customTypes';
-import { genreListQuery, searchQuery, topQuery } from '../api/anilist'
+import { genreListQuery, searchQuery, topQuery, popularQuery, airingQuery } from '../api/anilist'
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
 import CardGridLoading from '../components/CardGridLoading';
@@ -88,6 +88,20 @@ const Search: React.FC<{}> = () => {
                 }
                 return;
             } 
+            if (parseInt(storedGridType) === GridType.Popular) {
+                //search most popular, restore current page
+                if (isAdultContent) {
+                    queryHandlers.popularSearch(parseInt(storedPage), JSON.parse(isAdultContent));
+                } else {
+                    queryHandlers.popularSearch(parseInt(storedPage), adultContent);
+                }
+                return;
+            } 
+            if (parseInt(storedGridType) === GridType.Airing) {
+                //search currently airing, restore current page
+                queryHandlers.airingSearch(parseInt(storedPage));
+                return;
+            }
             if (parseInt(storedGridType) === GridType.Search) {
                 const storedSearch = sessionStorage.getItem('search');
 
@@ -195,6 +209,26 @@ const Search: React.FC<{}> = () => {
             topQuery(page, perPageCount, adultContent)
                 .then(responseHandlers.setData)
                 .catch(responseHandlers.setOffline);
+        },
+        popularSearch: (page: number, adultContent: boolean): void => {
+            setClientHasConnection(true);
+            setIsGridLoading(true);
+            setGridType(GridType.Popular);
+            setGridPage(page);
+
+            popularQuery(page, perPageCount, adultContent)
+                .then(responseHandlers.setData)
+                .catch(responseHandlers.setOffline);
+        },
+        airingSearch: (page: number): void => {
+            setClientHasConnection(true);
+            setIsGridLoading(true);
+            setGridType(GridType.Airing);
+            setGridPage(page);
+
+            airingQuery(page, perPageCount)
+                .then(responseHandlers.setData)
+                .catch(responseHandlers.setOffline);
         }
     };
 
@@ -216,6 +250,20 @@ const Search: React.FC<{}> = () => {
                 queryHandlers.genreSearch(1, gridGenres, [SortFilters.SCORE_DESC, SortFilters.POPULARITY_DESC], adultContent)
             }
         },
+        handlePresetSearch: (preset: GridType): void => {
+            if (preset === GridType.Top) {
+                queryHandlers.topSearch(1, adultContent);
+            }
+            if (preset === GridType.Popular) {
+                queryHandlers.popularSearch(1, adultContent);
+            }
+            if (preset === GridType.Airing) {
+                queryHandlers.airingSearch(1);
+            }
+
+            setGridGenres([]);
+            setGridSearch('');
+        },
         handlePaginate: (page: number): void => { //should change based on gridType
             if (gridType === GridType.Search) {
                 queryHandlers.termSearch(page, activeSearch, adultContent);
@@ -225,6 +273,12 @@ const Search: React.FC<{}> = () => {
             }
             if (gridType === GridType.Top) {
                 queryHandlers.topSearch(page, adultContent);
+            }
+            if (gridType === GridType.Popular) {
+                queryHandlers.popularSearch(page, adultContent);
+            }
+            if (gridType === GridType.Airing) {
+                queryHandlers.airingSearch(page);
             }
         }
     };
@@ -267,6 +321,7 @@ const Search: React.FC<{}> = () => {
             <Suspense fallback={<div className={styles.header_placeholder}></div>}>
                 <HeaderSearch 
                     gridSearch={gridSearch}
+                    handlePresetSearch={searchHandlers.handlePresetSearch}
                     handleChangeSearch={changeHandlers.handleChangeSearch}
                     handleTermSearch={searchHandlers.handleTermSearch}
                     handleChangeGenres={changeHandlers.handleChangeGenres}

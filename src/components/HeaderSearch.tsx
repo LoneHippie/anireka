@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Genres } from '../application/customTypes';
+import { Genres, GridType } from '../application/customTypes';
 
 import Logo from '../images/anireka.svg';
 import Search from '../images/search.svg';
@@ -11,6 +11,7 @@ import styles from './HeaderSearch.module.scss';
 
 interface Props {
     gridSearch: string;
+    handlePresetSearch: (preset: GridType) => void;
     handleChangeSearch: (e: any) => any;
     handleTermSearch: (e: any, page: number) => any;
     handleChangeGenres: (e: any) => any;
@@ -20,7 +21,7 @@ interface Props {
     gridGenres: Array<Genres>;
 };
 
-const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleTermSearch, handleChangeGenres, handleSearchGenres, handleChangeAdultContent, adultContent, gridGenres }) => {
+const HeaderSearch: React.FC<Props> = ({ gridSearch, handlePresetSearch, handleChangeSearch, handleTermSearch, handleChangeGenres, handleSearchGenres, handleChangeAdultContent, adultContent, gridGenres }) => {
 
     const [ optionsActive, setOptionsActive ] = useState<boolean>(false);
 
@@ -115,7 +116,36 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handleChangeSearch, handleT
                 optionsActive ? (
                     <div className={styles.options}>
 
-                        <h2>Select Genres</h2>
+                        <h2>Quick Search</h2>
+
+                        <div className={styles.preset_grid}>
+                            <button 
+                                onClick={() => {
+                                    handlePresetSearch(GridType.Top)
+                                    setOptionsActive(false)
+                                }}
+                            >
+                                Top
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    handlePresetSearch(GridType.Popular)
+                                    setOptionsActive(false)
+                                }}
+                            >
+                                Popular
+                            </button>
+                            <button 
+                                onClick={() => {
+                                    handlePresetSearch(GridType.Airing)
+                                    setOptionsActive(false)
+                                }}
+                            >
+                                Airing
+                            </button>
+                        </div>
+
+                        <h2>Filter by Genres</h2>
                         
                         <div className={styles.genre_grid}>
                             { genreButtons() }

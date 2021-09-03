@@ -151,6 +151,27 @@
     }
 }
 
+.preset_grid {
+    padding: 1.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 0.5rem;
+
+    @include respond(tablet) {
+        width: 50%;
+    }
+
+    & > button {
+        @include btnPrimary($nia-blue-light);
+        border: 2px solid $white;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
 .genre_grid {
     padding: 1.5rem;
 
