@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Parser from 'react-html-parser';
 import useWindowDimensions from '../hooks/useWindowDimensions';
@@ -154,7 +155,15 @@ const Entry: React.FC<Props> = ({ match }) => {
 
     return (
         <main className={styles.page}>
+
+            <Helmet>
+                <html lang="en" />
+                <meta name="description" content="Detailed info, summary, and related animes for the selected title." />
+                <title>Anireka | Full Entry</title>
+            </Helmet>
+
             <Navbar />
+
             {
                 anime ? (
                     <>

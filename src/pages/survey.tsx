@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
 import { QuestionT, Answer } from '../application/customTypes';
 
@@ -248,6 +249,12 @@ const Survey: React.FC<{}> = () => {
 
     return (
         <main className={styles.survey}>
+
+            <Helmet>
+                <html lang="en" />
+                <meta name="description" content="Try our brief multi-question survey to find your next anime, whether you\'re new or looking for hidden gems." />
+                <title>Anireka | Recommendation Survey</title>
+            </Helmet>
 
             <Navbar />
 

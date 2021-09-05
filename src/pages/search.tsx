@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Suspense } from 'react';
+import { Helmet } from 'react-helmet';
 import { Genres, SortFilters, GridType, AnimeList } from '../application/customTypes';
 import { genreListQuery, searchQuery, topQuery, popularQuery, airingQuery } from '../api/anilist'
 import useWindowDimensions from '../hooks/useWindowDimensions';
@@ -317,6 +318,12 @@ const Search: React.FC<{}> = () => {
 
     return (
         <main>
+
+            <Helmet>
+                <html lang="en" />
+                <meta name="description" content="Search for your favorite animes or discover something new. Browse by popularity, user score, new or by genre tags." />
+                <title>Anireka | Anime Search</title>
+            </Helmet>
 
             <Suspense fallback={<div className={styles.header_placeholder}></div>}>
                 <HeaderSearch 
