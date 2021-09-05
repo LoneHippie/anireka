@@ -23,7 +23,9 @@ const SurveyQuestion: React.FC<Props> = ({ currentQuestion, handleLink }) => {
 
     return (
         <div className={styles.question}>
-            <h2>{currentQuestion.question}</h2>
+            <div className={styles.title}>
+                <h2>{currentQuestion.question}</h2>
+            </div>
 
             <div className={styles.answers}>
                 { answerButtons() }

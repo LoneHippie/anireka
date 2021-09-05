@@ -2,22 +2,43 @@
 @import '../styles/mixins';
 
 .question {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -60%);
-    width: 90%;
-    padding: 3rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.title {
+    position: relative;
+    padding: 8rem 0.75rem;
+    margin-bottom: 3rem;
+
+    background: $nia-pink;
+    background-image: linear-gradient(to top right,
+        $nia-pink,
+        rgba($nia-pink, 0.5)
+    ), 
+    url('../images/bg_mushishi.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    clip-path: polygon(0 0, 100% 0, 100% 72.5%, 0% 100%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 72.5%, 0% 100%);
+
+    z-index: 50;
 
     & > h2 {
         text-align: center;
-        font-size: 4rem;
+        font-size: 3.75rem;
+        line-height: 4.2rem;
         color: $white;
-        margin-bottom: 3rem;
+
+        @include stroke($nia-pink, 1.75px);
     }
 }
 
@@ -26,13 +47,20 @@
     flex-direction: column;
     align-items: center;
 
-    & > button {
-        @include btnOutline($white);
-        width: 80%;
+    padding: 7rem 0;
+    margin-top: -8rem;
 
-        &:not(:last-child) {
-            margin-bottom: 2rem;
+    & > button {
+        @include btnWhite($nia-pink);
+        min-height: 5rem;
+        width: 80%;
+        margin-bottom: 2rem;
+        
+        &:last-child {
+            margin-bottom: 5rem;
         }
+
+        @include focusState($nia-pink);
 
         &:hover {
             cursor: pointer;
