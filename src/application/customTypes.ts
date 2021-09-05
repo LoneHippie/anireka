@@ -1,5 +1,16 @@
 ////////// Shared //////////
 
+export type Answer = {
+    text: string,
+    link: number
+}
+
+export type QuestionT = {
+    question: string,
+    isEndpoint: boolean,
+    answers: Array<Answer>
+}
+
 type Title = {
     english: string | null,
     native: string | null,

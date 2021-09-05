@@ -13,13 +13,18 @@
     @include respond(landscapePhone) {
         padding-bottom: 12rem;
     }
+    @include respond(tablet) {
+        padding-bottom: 16.5rem;
+    }
     @include respond(laptop) {
-        padding-bottom: 15rem;
+        padding-bottom: 19rem;
     }
     @include respond(desktop) {
-        padding-bottom: 18rem;
+        padding-bottom: 22rem;
     }
     color: $white;
+
+    z-index: 500;
 
     & > p {
         font-size: 2.2rem;

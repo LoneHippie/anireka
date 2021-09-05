@@ -43,7 +43,7 @@ const AboutSectionHome: React.FC<{}> = () => {
                 </div>
             </div>
 
-            <p>Search by popularity, name, or browse with multiple genre filters with ease with our <Link to="/search">search engine.</Link> Newer to anime or not sure what you're looking for? Scroll to the featured section or head to our recommendation survey to get curated results.</p>
+            <p>Search by popularity, name, or browse with multiple genre filters with ease with our <Link to="/search">search engine.</Link> Newer to anime or not sure what you're looking for? Head to our <Link to="/survey">recommendation survey</Link> or scroll down to the featured section for curated results.</p>
 
             <img 
                 className={styles.bottom_clip}
