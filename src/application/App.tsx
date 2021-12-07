@@ -16,9 +16,10 @@ const App: React.FC<{}> = () => {
     const Survey = React.lazy(() => import('../pages/survey'));
 
     useEffect(() => {
+        console.log(':)');
         ReactGa.initialize(AnalyticsTracking);
         ReactGa.pageview(window.location.pathname + window.location.search);
-    }, []);
+    });
 
     return (
         <Suspense fallback={<PageLoading />}>
