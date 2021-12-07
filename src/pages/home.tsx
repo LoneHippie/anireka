@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import Navbar from '../components/Navbar';
 import HeaderHome from '../components/HeaderHome';
 import AboutSectionHome from '../components/AboutSectionHome';
+import Footer from '../components/Footer';
 
 // import styles from './home.module.scss';
 
@@ -29,6 +30,8 @@ const Home: React.FC<{}> = () => {
             <Suspense fallback={<section></section>}>
                 <FeaturedSectionHome />
             </Suspense>
+
+            <Footer />
 
         </main>
     )
