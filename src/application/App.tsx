@@ -1,5 +1,8 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import ReactGa from 'react-ga';
+import AnalyticsTracking from './process.config';
 
 import PageLoading from '../components/PageLoading';
 
@@ -11,6 +14,11 @@ const App: React.FC<{}> = () => {
     const Search = React.lazy(() => import('../pages/search'));
     const Entry = React.lazy(() => import('../pages/entry'));
     const Survey = React.lazy(() => import('../pages/survey'));
+
+    useEffect(() => {
+        ReactGa.initialize(AnalyticsTracking);
+        ReactGa.pageview(window.location.pathname + window.location.search);
+    }, []);
 
     return (
         <Suspense fallback={<PageLoading />}>
