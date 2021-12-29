@@ -165,7 +165,7 @@ const HeaderSearch: React.FC<Props> = ({ gridSearch, handlePresetSearch, handleC
 
                             <div className={styles.adult_content_switch}>
                                 <h3 style={{color: adultContent ? '#00BDD7' : '#FFFFFF'}}>
-                                    Hentai Results
+                                    Explicit Results
                                 </h3>
                                 <div className={styles.adult_toggle}>
                                     <span className={styles.adult_label}>Off</span>
