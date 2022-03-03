@@ -6,8 +6,7 @@ import useWindowDimensions from '../hooks/useWindowDimensions';
 import { singleQuery } from '../api/anilist';
 import { Anime } from '../application/customTypes';
 
-import Navbar from '../components/Navbar';
-import PageLoading from '../components/PageLoading';
+import { Navbar, PageLoading } from '../components';
 
 import SwoopClip from '../images/swoop_clip.svg';
 import Logo from '../images/anireka.svg';

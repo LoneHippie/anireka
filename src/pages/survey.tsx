@@ -3,8 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
 import { QuestionT, Answer } from '../application/customTypes';
 
-import Navbar from '../components/Navbar';
-import SurveyQuestion from '../components/SurveyQuestion';
+import { Navbar, SurveyQuestion } from '../components';
 
 import styles from './survey.module.scss';
 

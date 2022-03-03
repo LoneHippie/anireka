@@ -1,10 +1,6 @@
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
-
-import Navbar from '../components/Navbar';
-import HeaderHome from '../components/HeaderHome';
-import AboutSectionHome from '../components/AboutSectionHome';
-import Footer from '../components/Footer';
+import { Navbar, HeaderHome, AboutSectionHome, Footer } from '../components';
 
 // import styles from './home.module.scss';
 

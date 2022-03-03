@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ReactGa from 'react-ga';
 import AnalyticsTracking from './process.config';
 
-import PageLoading from '../components/PageLoading';
+import { PageLoading } from '../components';
 
 import '../styles/app.scss';
 

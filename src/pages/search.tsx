@@ -4,8 +4,7 @@ import { Genres, SortFilters, GridType, AnimeList } from '../application/customT
 import { genreListQuery, searchQuery, topQuery, popularQuery, airingQuery } from '../api/anilist'
 import useWindowDimensions from '../hooks/useWindowDimensions';
 
-import CardGridLoading from '../components/CardGridLoading';
-import CardGridOffline from '../components/CardGridOffline';
+import { CardGridLoading, CardGridOffline } from '../components';
 
 import styles from './search.module.scss';
 
