@@ -1,6 +1,7 @@
-import React, { useRef, useState, Suspense } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { Suspense, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { MediaMini } from '../../application/customTypes';
+import useCardMini from './useCardMini';
 import useOnScreen from '../../hooks/useOnScreen';
 
 import Swoop from '../../images/swoop_card.svg';
@@ -15,44 +16,20 @@ interface Props {
 
 const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
 
-    const history = useHistory();
-
-    let blurTimer: any; //for preventing blur firing on child elements of component
+    const {
+        history,
+        episodeStatus,
+        shortenedTitle,
+        showCardoptions,
+        showRecommendations,
+        setShowCardOptions,
+        setShowReccomendations
+    } = useCardMini(anime);
 
     const ref = useRef<HTMLDivElement>(null);
     const inView = useOnScreen(ref);
 
-    const [ showCardoptions, setShowCardOptions ] = useState<boolean>(false);
-    const [ showRecommendations, setShowReccomendations ] = useState<boolean>(false);
-
-    const episodeStatus = (): string => {
-        if (anime.format === 'MOVIE') return 'Movie';
-        if (anime.format === 'MUSIC') return 'Music Video';
-
-        if (anime.status === 'FINISHED') {
-            return `Ep: ${anime.episodes}`;
-        } else if (anime.status === 'NOT_YET_RELEASED') {
-            return 'Unreleased';
-        } else {
-            return 'Ongoing';
-        }
-    };
-
-    const shortenedTitle = (title: string): string => {
-        let formattedTitle: string | string[];
-        let wordLength: number = 9;
-
-        formattedTitle = title.split(' ');
-
-        if (formattedTitle.length > wordLength) {
-            for (let i = formattedTitle.length; i > wordLength; i--) {
-                formattedTitle.pop();
-            }
-            return formattedTitle.join(' ') + '...';
-        } else {
-            return title;
-        }
-    };
+    let blurTimer: any; //for preventing blur firing on child elements of component
 
     const RecommendationsTab = React.lazy(() => import('../RecommendationsTab'));
 

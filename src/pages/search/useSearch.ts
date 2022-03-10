@@ -1,20 +1,8 @@
-import React, { useState, useEffect, Suspense } from 'react';
-import { Helmet } from 'react-helmet';
-import { Genres, SortFilters, GridType, AnimeList } from '../application/customTypes';
-import { genreListQuery, searchQuery, topQuery, popularQuery, airingQuery } from '../api/anilist'
-import useWindowDimensions from '../hooks/useWindowDimensions';
+import { useState, useEffect } from "react";
+import { Genres, SortFilters, GridType, AnimeList } from '../../application/customTypes';
+import { genreListQuery, searchQuery, topQuery, popularQuery, airingQuery } from '../../api/anilist'
 
-import { CardGridLoading, CardGridOffline } from '../components';
-
-import styles from './search.module.scss';
-
-const Search: React.FC<{}> = () => {
-
-    //lazy load to improve performance
-    const CardGrid = React.useMemo(() => React.lazy(() => import('../components/CardGrid')), []);
-    const PaginationBar = React.useMemo(() => React.lazy(() => import('../components/PaginationBar')), []);
-    const HeaderSearch = React.useMemo(() => React.lazy(() => import('../components/HeaderSearch')), []);
-
+const useSearch = (perPageCount: number) => {
     //global grid state
     const [ isGridLoading, setIsGridLoading ] = useState<boolean>(true);
     const [ gridType, setGridType ] = useState<GridType>();
@@ -27,30 +15,10 @@ const Search: React.FC<{}> = () => {
     //grid genre state
     const [ gridGenres, setGridGenres ] = useState<Array<Genres>>([]);
     const [ activeGenres, setActiveGenres ] = useState<Array<Genres>>([]);
-    
+
     const [ clientHasConnection, setClientHasConnection ] = useState<boolean>(true);
 
     const [ animeList, setAnimeList ] = useState<AnimeList | null>(null);
-
-    const { screenWidth } = useWindowDimensions();
-
-    let perPageCount: number = 20;
-
-    if (screenWidth) {
-        switch(true) {
-            case screenWidth < 400:
-                perPageCount = 20;
-                break;
-            case screenWidth >= 568 && screenWidth < 768:
-                perPageCount = 30;
-                break;
-            case screenWidth >= 768 && screenWidth < 1024:
-                perPageCount = 40;
-                break;
-            default:
-                perPageCount = 50;
-        }
-    };
 
     //restore previous search for current session, check localStorage for search preferences, if first load default to search by top, page 1
     useEffect(() => {
@@ -305,54 +273,16 @@ const Search: React.FC<{}> = () => {
         }
     };
 
-    const gridBodyRender = () => {
-        if (isGridLoading) return <CardGridLoading />
-
-        return clientHasConnection ? (
-            <CardGrid animeList={animeList} />
-        ) : (
-            <CardGridOffline />
-        )
-    };
-
-    return (
-        <main>
-
-            <Helmet>
-                <html lang="en" />
-                <meta name="description" content="Search for your favorite animes or discover something new. Browse by popularity, user score, new or by genre tags." />
-                <title>Anireka | Anime Search</title>
-            </Helmet>
-
-            <Suspense fallback={<div className={styles.header_placeholder}></div>}>
-                <HeaderSearch 
-                    gridSearch={gridSearch}
-                    handlePresetSearch={searchHandlers.handlePresetSearch}
-                    handleChangeSearch={changeHandlers.handleChangeSearch}
-                    handleTermSearch={searchHandlers.handleTermSearch}
-                    handleChangeGenres={changeHandlers.handleChangeGenres}
-                    handleSearchGenres={searchHandlers.handleSearchGenres}
-                    handleChangeAdultContent={changeHandlers.handleChangeAdultContent}
-                    adultContent={adultContent}
-                    gridGenres={gridGenres}
-                />
-            </Suspense>
-
-            <section className={styles.grid_body}>
-                <Suspense fallback={<CardGridLoading />}>
-                    { gridBodyRender() }
-                </Suspense>
-            </section>
-
-            <Suspense fallback={<div className={styles.pagination_placeholder}></div>}>
-                <PaginationBar 
-                    pageInfo={animeList?.pageInfo}
-                    handlePaginate={searchHandlers.handlePaginate}
-                />
-            </Suspense>
-
-        </main>
-    )
+    return {
+        animeList,
+        clientHasConnection,
+        isGridLoading,
+        searchHandlers,
+        changeHandlers,
+        adultContent,
+        gridSearch,
+        gridGenres
+    }
 };
 
-export default Search;
+export default useSearch;

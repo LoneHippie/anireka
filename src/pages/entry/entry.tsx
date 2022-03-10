@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Parser from 'react-html-parser';
-import useWindowDimensions from '../hooks/useWindowDimensions';
-import { singleQuery } from '../api/anilist';
-import { Anime } from '../application/customTypes';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
+import { singleQuery } from '../../api/anilist';
+import { Anime } from '../../application/customTypes';
 
-import { Navbar, PageLoading } from '../components';
+import { Navbar, PageLoading } from '../../components';
 
-import SwoopClip from '../images/swoop_clip.svg';
-import Logo from '../images/anireka.svg';
+import SwoopClip from '../../images/swoop_clip.svg';
+import Logo from '../../images/anireka.svg';
 
 import styles from './entry.module.scss';
 

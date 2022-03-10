@@ -1,12 +1,12 @@
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
-import { Navbar, HeaderHome, AboutSectionHome, Footer } from '../components';
+import { Navbar, HeaderHome, AboutSectionHome, Footer } from '../../components';
 
 // import styles from './home.module.scss';
 
 const Home: React.FC<{}> = () => {
 
-    const FeaturedSectionHome = React.useMemo(() => React.lazy(() => import('../components/FeaturedSectionHome')), []);
+    const FeaturedSectionHome = React.useMemo(() => React.lazy(() => import('../../components/FeaturedSectionHome')), []);
 
     return (
         <main>

@@ -1,4 +1,4 @@
-@import '../styles/variables';
+@import '../../styles/variables';
 
 .grid_body {
     background: $nia-blue-light;
@@ -6,7 +6,7 @@
         $nia-blue-light,
         rgba($nia-blue-light, 0.5)
     ), 
-    url('../images/bg_mushishi.jpeg');
+    url('../../images/bg_mushishi.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

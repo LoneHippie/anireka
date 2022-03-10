@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { AnimeList } from '../../application/customTypes';
 
 import CardMini from '../CardMini';
@@ -12,7 +12,7 @@ interface Props {
 
 const CardGrid: React.FC<Props> = ({ animeList }) => {
 
-    const generateGrid = () => {
+    const generateGrid = useCallback(() => {
         if (!animeList) return null;
 
         return animeList.media.map((el, index) => (
@@ -22,7 +22,7 @@ const CardGrid: React.FC<Props> = ({ animeList }) => {
                 isRecommendation={false}
             />
         ))
-    };
+    }, [animeList]);
 
     return (
         animeList && animeList.media.length ? (

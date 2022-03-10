@@ -1,6 +1,6 @@
-@import '../styles/variables';
-@import '../styles/mediaqueries';
-@import '../styles/mixins';
+@import '../../styles/variables';
+@import '../../styles/mediaqueries';
+@import '../../styles/mixins';
 
 .page {
     overflow-x: hidden;
@@ -18,7 +18,7 @@
         $nia-pink,
         rgba($nia-pink, 0.7)
     ), 
-    url('../images/bg_mushishi.jpeg');
+    url('../../images/bg_mushishi.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { useHistory } from 'react-router';
-import { QuestionT, Answer } from '../application/customTypes';
+import { QuestionT, Answer } from '../../application/customTypes';
+import { useState } from 'react';
 
-import { Navbar, SurveyQuestion } from '../components';
-
-import styles from './survey.module.scss';
-
-const Survey: React.FC<{}> = () => {
-
-    const history = useHistory();    
+const useSurvey = () => {
 
     class Question implements QuestionT {
         question: string;
@@ -234,36 +226,13 @@ const Survey: React.FC<{}> = () => {
         [30404, question30404] //traditional stories
     ]);
 
-    const [ currentQuestion, setCurrentQuestion ] = useState<QuestionT>(question1);
+    const [ currentQuestion, setCurrentQuestion ] = useState<QuestionT>(surveyQuestions.get(1)!);
 
-    const questionHandlers = {
-        handleLink: (link: number): void => {
-            if (currentQuestion.isEndpoint) {
-                history.push(`/entry/${link}`);
-            } else {
-                setCurrentQuestion(surveyQuestions.get(link)!);
-            }
-        }
-    };
-
-    return (
-        <main className={styles.survey}>
-
-            <Helmet>
-                <html lang="en" />
-                <meta name="description" content="Try our brief multi-question survey to find your next anime, whether you\'re new or looking for hidden gems." />
-                <title>Anireka | Recommendation Survey</title>
-            </Helmet>
-
-            <Navbar />
-
-            <SurveyQuestion 
-                currentQuestion={currentQuestion}
-                handleLink={questionHandlers.handleLink}
-            />
-            
-        </main>
-    )
+    return {
+        surveyQuestions,
+        currentQuestion,
+        setCurrentQuestion
+    }
 };
 
-export default Survey;
+export default useSurvey;
