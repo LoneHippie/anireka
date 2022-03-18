@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Parser from 'react-html-parser';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { singleQuery } from '../../api/anilist';
@@ -13,36 +13,27 @@ import Logo from '../../images/anireka.svg';
 
 import styles from './entry.module.scss';
 
-interface Props {
-    match: {
-        isExact: boolean,
-        params: {
-            id: string
-        },
-        path: string,
-        url: string
-    }
-}
-
 enum RelatedLink {
     SEQUEL = 'SEQUEL',
     PREQUEL = 'PREQUEL'
 }
 
-const Entry: React.FC<Props> = ({ match }) => {
+const Entry: React.FC = () => {
 
     const [ anime, setAnime ] = useState<null | Anime>(null);
 
     const { screenWidth } = useWindowDimensions();
 
+    const { id } = useParams();
+
     useEffect(() => {
-        const animeID = parseInt(match.params.id);
+        const animeID = parseInt(id!);
         singleQuery(animeID)
             .then((data) => {
                 setAnime(data.data.Media);
             })
         window.scrollTo(0, 0);
-    }, [match.params.id]);
+    }, [id]);
 
     const animeStudio = (): string => {
         if (!anime) return 'Unknown';

@@ -1,7 +1,6 @@
 import { MediaMini } from '../../application/customTypes';
-import { useHistory } from 'react-router-dom';
-import { useState, useRef } from "react";
-import useOnScreen from "../../hooks/useOnScreen";
+import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
 
 const useCardMini = (anime: MediaMini) => {
 
@@ -18,7 +17,7 @@ const useCardMini = (anime: MediaMini) => {
         }
     };
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const shortenedTitle = (title: string): string => {
         let formattedTitle: string | string[];
@@ -40,7 +39,7 @@ const useCardMini = (anime: MediaMini) => {
     const [ showRecommendations, setShowReccomendations ] = useState<boolean>(false);
 
     return {
-        history,
+        navigate,
         episodeStatus,
         shortenedTitle,
         showCardoptions,

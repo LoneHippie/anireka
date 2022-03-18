@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import ReactGa from 'react-ga';
 import AnalyticsTracking from './process.config';
@@ -23,12 +23,12 @@ const App: React.FC<{}> = () => {
     return (
         <Suspense fallback={<PageLoading />}>
             <Router>
-                <Switch>
-                    <Route path="/" exact render={() => <Home />} />
-                    <Route path="/search" exact render={() => <Search />} />
-                    <Route path="/survey" exact render={() => <Survey />} />
-                    <Route path="/entry/:id" component={ Entry } />
-                </Switch>
+                <Routes>
+                    <Route path="/" element={ <Home /> } />
+                    <Route path="/search" element={ <Search />} />
+                    <Route path="/survey" element={ <Survey />} />
+                    <Route path="/entry/:id" element={ <Entry/> } />
+                </Routes>
             </Router>
         </Suspense>
     )

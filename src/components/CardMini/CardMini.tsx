@@ -17,7 +17,7 @@ interface Props {
 const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
 
     const {
-        history,
+        navigate,
         episodeStatus,
         shortenedTitle,
         showCardoptions,
@@ -47,7 +47,7 @@ const CardMini: React.FC<Props> = ({ anime, isRecommendation }) => {
                     if (!isRecommendation) {
                         setShowCardOptions(true)
                     } else {
-                        history.push(`/entry/${anime.id}`)
+                        navigate(`/entry/${anime.id}`)
                     }
                 }}
                 onFocus={() => {

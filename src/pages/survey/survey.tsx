@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import useSurvey from './useSurvey';
 
 import { Navbar, SurveyQuestion } from '../../components';
@@ -15,12 +15,12 @@ const Survey: React.FC<{}> = () => {
         setCurrentQuestion
     } = useSurvey();
 
-    const history = useHistory();    
+    const navigate = useNavigate();    
 
     const questionHandlers = {
         handleLink: (link: number): void => {
             if (currentQuestion.isEndpoint) {
-                history.push(`/entry/${link}`);
+                navigate(`/entry/${link}`);
             } else {
                 setCurrentQuestion(surveyQuestions.get(link)!);
             }
